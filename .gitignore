@@ -33,11 +33,3 @@ Thumbs.db
 build/
 dist/
 *.egg-info/
-
-# Node (if any frontend code)
-node_modules/
-npm-debug.log
-yarn-error.log
-
-# Optional: IDE configs
-.idea/
