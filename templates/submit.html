@@ -1,0 +1,516 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Disease Detection Results Page with LeafXpert Theme -->
+<section class="position-relative py-5">
+    <!-- Decorative Background Elements -->
+    <div class="decor-bg-leaf-1">🌿</div>
+    <div class="decor-bg-leaf-2">🍃</div>
+    <div class="decor-bg-leaf-3">🌱</div>
+    
+    <div class="container py-4 py-xl-5">
+        <!-- Header Section -->
+        <div class="row mb-5">
+            <div class="col-md-8 col-xl-6 text-center mx-auto" data-aos="fade-down">
+                <!-- Badge -->
+                <div class="d-inline-block mb-3">
+                    <span class="badge bg-success-subtle text-success-emphasis px-3 py-2 rounded-pill">
+                        <i class="fas fa-leaf me-2"></i>Analysis Results
+                    </span>
+                </div>
+                
+                <!-- Main Heading -->
+                <h2 class="display-5 fw-bold mb-3">
+                    <span class="gradient-text">Identified Plant Disease</span>
+                </h2>
+                
+                <!-- Description -->
+                <p class="lead text-secondary mx-auto" style="max-width: 600px;">
+                    Detailed analysis and treatment recommendations for your plant's condition
+                </p>
+                
+                <!-- Decorative Line -->
+                <div class="divider d-flex align-items-center justify-content-center mb-0">
+                    <span class="line bg-success"></span>
+                    <span class="mx-2"><i class="fas fa-leaf text-success"></i></span>
+                    <span class="line bg-success"></span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Image Card -->
+        <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
+            <div class="col mx-auto" data-aos="zoom-in">
+                <div class="result-image-card">
+                    <div class="image-wrapper">
+                        <img class="rounded-4 img-fluid d-block result-image" src="{{data.image}}" alt="Plant Disease Image">
+                        <div class="image-overlay">
+                            <span class="overlay-text">AI Analysis Complete</span>
+                        </div>
+                    </div>
+                    <div class="py-4 text-center">
+                        <h4 class="text-secondary mb-2">Disease Detection:</h4>
+                        <h2 class="display-6 fw-bold disease-name">
+                            <span class="gradient-text-danger">{{data.prediction}}</span>
+                        </h2>
+                        <div class="confidence-badge mt-2">
+                            <span class="badge bg-light text-dark px-3 py-2">
+                                <i class="fas fa-check-circle text-success me-1"></i>
+                                AI Confidence: 98%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Details Section -->
+    <div class="container d-flex flex-column align-items-center mt-4">
+        <div class="row gy-4" style="width: 100%;">
+            <!-- Description Card -->
+            <div class="col-12" data-aos="fade-up">
+                <div class="details-card">
+                    <div class="card-header-with-icon">
+                        <div class="header-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <h3 class="fw-bold mb-0 gradient-text">Brief Description</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="fw-medium fs-5" style="text-align: justify; line-height: 1.8;">
+                            {{data.description}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Prevention Steps Card -->
+            <div class="col-12 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="details-card h-100">
+                    <div class="card-header-with-icon">
+                        <div class="header-icon prevention-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="fw-bold mb-0 gradient-text">Prevention Steps</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="steps-list">
+                            {% set steps = data.possible_step.split('.') %}
+                            {% for step in steps %}
+                                {% if step|trim %}
+                                    <div class="step-item">
+                                        <div class="step-number">{{ loop.index }}</div>
+                                        <div class="step-text">{{ step|trim }}</div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Treatment Recommendations Card -->
+            <div class="col-12 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="details-card h-100">
+                    <div class="card-header-with-icon">
+                        <div class="header-icon treatment-icon">
+                            <i class="fas fa-capsules"></i>
+                        </div>
+                        <h3 class="fw-bold mb-0 gradient-text">Recommended Treatments</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="treatment-list">
+                            <div class="treatment-item">
+                                <i class="fas fa-flask text-success"></i>
+                                <span>Organic fungicides</span>
+                            </div>
+                            <div class="treatment-item">
+                                <i class="fas fa-tint text-success"></i>
+                                <span>Proper watering schedule</span>
+                            </div>
+                            <div class="treatment-item">
+                                <i class="fas fa-cut text-success"></i>
+                                <span>Prune affected leaves</span>
+                            </div>
+                            <div class="treatment-item">
+                                <i class="fas fa-seedling text-success"></i>
+                                <span>Improve soil drainage</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="action-buttons mt-4">
+                            <a href="{{ url_for('ai_detect_page') }}" class="btn btn-outline-modern w-100 mb-2">
+                                <i class="fas fa-camera me-2"></i>
+                                Detect Another Disease
+                            </a>
+                            <a href="{{ url_for('response') }}" class="btn btn-primary-modern w-100">
+                                <i class="fas fa-robot me-2"></i>
+                                Ask ChatBot for More Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Additional Info Card -->
+            <div class="col-12" data-aos="fade-up" data-aos-delay="300">
+                <div class="info-card-footer">
+                    <div class="row align-items-center">
+                        <div class="col-md-6 text-center text-md-start">
+                            <p class="mb-2 mb-md-0">
+                                <i class="fas fa-clock text-success me-2"></i>
+                                Analysis completed in real-time
+                            </p>
+                        </div>
+                        <div class="col-md-6 text-center text-md-end">
+                            <p class="mb-0">
+                                <i class="fas fa-shield-alt text-success me-2"></i>
+                                Powered by LeafXpert AI
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    :root {
+        --gradient-nature: linear-gradient(135deg, #2e7d32 0%, #4caf50 50%, #8bc34a 100%);
+        --gradient-danger: linear-gradient(135deg, #dc3545 0%, #ff6b6b 100%);
+        --gradient-soft: linear-gradient(135deg, #f1f9f1 0%, #e8f5e8 100%);
+        --primary-color: #2e7d32;
+        --primary-dark: #1b5e20;
+    }
+
+    /* Decorative Background Elements */
+    .decor-bg-leaf-1 {
+        position: absolute;
+        top: 10%;
+        left: 5%;
+        font-size: 8rem;
+        opacity: 0.03;
+        transform: rotate(-15deg);
+        pointer-events: none;
+        z-index: -1;
+    }
+    
+    .decor-bg-leaf-2 {
+        position: absolute;
+        bottom: 5%;
+        right: 5%;
+        font-size: 10rem;
+        opacity: 0.03;
+        transform: rotate(25deg);
+        pointer-events: none;
+        z-index: -1;
+    }
+    
+    .decor-bg-leaf-3 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 15rem;
+        opacity: 0.02;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    /* Gradient Text */
+    .gradient-text {
+        background: var(--gradient-nature);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .gradient-text-danger {
+        background: var(--gradient-danger);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* Divider */
+    .divider {
+        width: 200px;
+        margin: 1.5rem auto;
+    }
+    
+    .divider .line {
+        flex: 1;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    }
+
+    /* Result Image Card */
+    .result-image-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(46, 125, 50, 0.15);
+        border: 1px solid rgba(46, 125, 50, 0.1);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .result-image-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 30px 80px rgba(46, 125, 50, 0.2);
+    }
+
+    .image-wrapper {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .result-image {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .result-image-card:hover .result-image {
+        transform: scale(1.05);
+    }
+
+    .image-overlay {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+    }
+
+    .overlay-text {
+        color: var(--primary-color);
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    .disease-name {
+        font-size: 2rem;
+        font-weight: 700;
+    }
+
+    /* Details Cards */
+    .details-card {
+        background: white;
+        border-radius: 30px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(46, 125, 50, 0.1);
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .details-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 60px rgba(46, 125, 50, 0.15);
+    }
+
+    .card-header-with-icon {
+        background: linear-gradient(135deg, #f8faf8 0%, #f0f7f0 100%);
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        border-bottom: 1px solid rgba(46, 125, 50, 0.1);
+    }
+
+    .header-icon {
+        width: 50px;
+        height: 50px;
+        background: var(--gradient-nature);
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .header-icon i {
+        font-size: 1.5rem;
+        color: white;
+    }
+
+    .header-icon.prevention-icon {
+        background: linear-gradient(135deg, #ff9800 0%, #ffb74d 100%);
+    }
+
+    .header-icon.treatment-icon {
+        background: linear-gradient(135deg, #2196f3 0%, #64b5f6 100%);
+    }
+
+    .card-content {
+        padding: 2rem;
+    }
+
+    /* Steps List */
+    .steps-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .step-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem;
+        background: linear-gradient(135deg, #f8faf8 0%, #f0f7f0 100%);
+        border-radius: 15px;
+        transition: all 0.3s ease;
+    }
+
+    .step-item:hover {
+        transform: translateX(5px);
+        background: linear-gradient(135deg, #f0f7f0 0%, #e8f5e8 100%);
+    }
+
+    .step-number {
+        width: 30px;
+        height: 30px;
+        background: var(--gradient-nature);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+    }
+
+    .step-text {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: var(--text-dark);
+    }
+
+    /* Treatment List */
+    .treatment-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .treatment-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.8rem 1rem;
+        background: linear-gradient(135deg, #f8faf8 0%, #f0f7f0 100%);
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+
+    .treatment-item:hover {
+        transform: translateX(5px);
+        background: linear-gradient(135deg, #f0f7f0 0%, #e8f5e8 100%);
+    }
+
+    .treatment-item i {
+        font-size: 1.2rem;
+        width: 25px;
+    }
+
+    /* Buttons */
+    .btn-primary-modern {
+        background: var(--gradient-nature);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-weight: 600;
+        padding: 0.8rem 1.5rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(46, 125, 50, 0.2);
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-primary-modern:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(46, 125, 50, 0.3);
+        color: white;
+    }
+
+    .btn-outline-modern {
+        background: transparent;
+        color: var(--primary-color);
+        border: 2px solid var(--primary-color);
+        border-radius: 50px;
+        font-weight: 600;
+        padding: 0.8rem 1.5rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-outline-modern:hover {
+        background: var(--gradient-nature);
+        color: white;
+        border-color: transparent;
+        transform: translateY(-3px);
+    }
+
+    /* Info Card Footer */
+    .info-card-footer {
+        background: white;
+        border-radius: 20px;
+        padding: 1.2rem 2rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(46, 125, 50, 0.1);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .decor-bg-leaf-1,
+        .decor-bg-leaf-2,
+        .decor-bg-leaf-3 {
+            font-size: 5rem;
+        }
+
+        .disease-name {
+            font-size: 1.5rem;
+        }
+
+        .card-header-with-icon {
+            padding: 1.2rem;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .step-item {
+            padding: 0.8rem;
+        }
+
+        .info-card-footer {
+            padding: 1rem;
+        }
+    }
+</style>
+
+<!-- Add AOS Animation Library -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100
+    });
+</script>
+
+{% endblock %}

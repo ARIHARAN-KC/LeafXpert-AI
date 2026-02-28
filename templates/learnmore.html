@@ -1,0 +1,443 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Features/About Page with LeafXpert Theme -->
+<section class="position-relative py-5">
+    <!-- Decorative Background Elements -->
+    <div class="decor-bg-leaf-1">🌿</div>
+    <div class="decor-bg-leaf-2">🍃</div>
+    <div class="decor-bg-leaf-3">🌱</div>
+    
+    <div class="container py-4 py-xl-5">
+        <!-- Header Section -->
+        <div class="row mb-5">
+            <div class="col-md-8 col-xl-6 text-center mx-auto" data-aos="fade-down">
+                <!-- Badge -->
+                <div class="d-inline-block mb-3">
+                    <span class="badge bg-success-subtle text-success-emphasis px-3 py-2 rounded-pill">
+                        <i class="fas fa-leaf me-2"></i>Our Technology
+                    </span>
+                </div>
+                
+                <!-- Main Heading -->
+                <h2 class="display-5 fw-bold mb-3">
+                    <span class="gradient-text">Leaf Disease Detection</span>
+                </h2>
+                
+                <!-- Description -->
+                <p class="lead text-secondary mx-auto" style="max-width: 700px;">
+                    Welcome to the LeafXpert Project, where advanced AI is employed to protect crops from diseases, ensuring the sustainability of our food production and maximizing agricultural yield.
+                </p>
+                
+                <!-- Decorative Line -->
+                <div class="divider d-flex align-items-center justify-content-center mb-0">
+                    <span class="line bg-success"></span>
+                    <span class="mx-2"><i class="fas fa-leaf text-success"></i></span>
+                    <span class="line bg-success"></span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Features Grid -->
+        <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
+            <!-- Model Card -->
+            <div class="col" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-card-detailed h-100">
+                    <div class="card-content p-4">
+                        <!-- Icon with gradient background -->
+                        <div class="feature-icon-wrapper mb-4">
+                            <div class="feature-icon-circle">
+                                <i class="fas fa-microchip"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- Card Title -->
+                        <h4 class="card-title fw-bold mb-3">Advanced Image Model</h4>
+                        
+                        <!-- Card Description -->
+                        <p class="card-text text-secondary mb-4">
+                        LeafXpert is powered by an advanced AI-based image classification model designed to accurately detect and identify plant diseases from leaf images. The system uses deep learning techniques trained on a diverse dataset covering multiple crops and disease categories, enabling it to recognize subtle visual patterns such as discoloration, spots, texture changes, and deformities. When a user uploads a leaf image, the model processes it in real time, extracts important visual features, and predicts the specific disease with high confidence. The system then provides detailed treatment recommendations and preventive measures to minimize crop damage. Built for reliability and speed, the advanced image model ensures early disease detection, reduces crop loss, and supports smart, data-driven agricultural practices.   
+                        </p>
+                        
+                        <!-- Stats Badge -->
+                        <div class="d-flex align-items-center justify-content-between">
+                            <span class="badge bg-success-subtle text-success-emphasis px-3 py-2">
+                                <i class="fas fa-check-circle me-1"></i>96.63% Accuracy
+                            </span>
+                              <a href="{{ url_for('ai_detect_page') }}" class="text-success text-decoration-none">
+                                Try it <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- Decorative Element -->
+                        <div class="card-decor">IM</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Supplement Card -->
+            <div class="col" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-card-detailed h-100">
+                    <div class="card-content p-4">
+                        <!-- Icon with gradient background -->
+                        <div class="feature-icon-wrapper mb-4">
+                            <div class="feature-icon-circle">
+                                <i class="fas fa-capsules"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- Card Title -->
+                        <h4 class="card-title fw-bold mb-3">Audio Support</h4>
+                        
+                        <!-- Card Description -->
+                        <p class="card-text text-secondary mb-4">
+                        LeafXpert provides intelligent audio-based interaction that allows users to communicate with the system using their voice. Farmers and users can ask plant disease–related questions in Tamil, Hindi, or English, making the platform more accessible and user-friendly, especially for those who are not comfortable typing. The system captures the user’s voice input, converts speech into text using AI-powered speech recognition, analyzes the query along with plant disease data, and generates accurate treatment and management recommendations. Responses can also be delivered in the selected language, ensuring clear and effective communication. This multilingual voice support enhances usability in rural areas, enables faster assistance directly from the field, and promotes inclusive smart agriculture through seamless human–AI interaction.    
+                        </p>
+                          <div class="d-flex align-items-center justify-content-between">
+                            <span class="badge bg-success-subtle text-success-emphasis px-3 py-2">
+                                <i class="fas fa-clock me-1"></i>3 languages
+                            </span>
+                            <a href="{{ url_for('voice_page') }}" class="text-success text-decoration-none">
+                                Try it <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                        <!-- Decorative Element -->
+                        <div class="card-decor">AS</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ChatBot Card -->
+            <div class="col" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-card-detailed h-100">
+                    <div class="card-content p-4">
+                        <!-- Icon with gradient background -->
+                        <div class="feature-icon-wrapper mb-4">
+                            <div class="feature-icon-circle">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- Card Title -->
+                        <h4 class="card-title fw-bold mb-3">AI ChatBot</h4>
+                        
+                        <!-- Card Description -->
+                        <p class="card-text text-secondary mb-4">
+                        LeafXpert includes an intelligent AI Chatbot Assistant designed to provide instant, interactive support for plant disease queries and agricultural guidance. The chatbot understands user questions in Tamil, Hindi, and English, enabling seamless communication for farmers and agricultural professionals. It analyzes user inputs—whether text or converted speech—and generates accurate, context-aware responses based on plant disease knowledge and treatment recommendations. The AI assistant can explain disease symptoms, suggest preventive measures, recommend treatment solutions, and provide general crop care guidance. With real-time interaction and multilingual support, the chatbot enhances accessibility, improves decision-making, and delivers reliable agricultural assistance anytime, anywhere.
+                        </p>
+                        
+                        <!-- Stats Badge -->
+                        <div class="d-flex align-items-center justify-content-between">
+                            <span class="badge bg-success-subtle text-success-emphasis px-3 py-2">
+                                <i class="fas fa-clock me-1"></i>24/7 Support
+                            </span>
+                            <a href="{{ url_for('response') }}" class="text-success text-decoration-none">
+                                Try it <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- Decorative Element -->
+                        <div class="card-decor">AI</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Additional Info Section -->
+        <div class="row mt-5 pt-4">
+            <div class="col-12">
+                <div class="stats-wrapper-detailed rounded-4 p-4 p-lg-5" data-aos="fade-up">
+                    <div class="row g-4 align-items-center">
+                        <div class="col-lg-4 text-center text-lg-start">
+                            <h3 class="fw-bold mb-2 gradient-text">Why Trust Us?</h3>
+                            <p class="text-secondary mb-0">Built with cutting-edge technology and extensive research</p>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="row g-3">
+                                <div class="col-md-4 col-6">
+                                    <div class="trust-item">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="fas fa-database text-success fs-4"></i>
+                                            <div>
+                                                <h5 class="fw-bold mb-0">87k+</h5>
+                                                <small class="text-secondary">Images Trained</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-6">
+                                    <div class="trust-item">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="fas fa-leaf text-success fs-4"></i>
+                                            <div>
+                                                <h5 class="fw-bold mb-0">38+</h5>
+                                                <small class="text-secondary">Plant Varieties </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-6">
+                                    <div class="trust-item">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="fas fa-trophy text-success fs-4"></i>
+                                            <div>
+                                                <h5 class="fw-bold mb-0">9%</h5>
+                                                <small class="text-secondary">Accuracy</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Decorative Background Elements */
+    .decor-bg-leaf-1 {
+        position: absolute;
+        top: 10%;
+        left: 5%;
+        font-size: 8rem;
+        opacity: 0.03;
+        transform: rotate(-15deg);
+        pointer-events: none;
+        z-index: -1;
+    }
+    
+    .decor-bg-leaf-2 {
+        position: absolute;
+        bottom: 5%;
+        right: 5%;
+        font-size: 10rem;
+        opacity: 0.03;
+        transform: rotate(25deg);
+        pointer-events: none;
+        z-index: -1;
+    }
+    
+    .decor-bg-leaf-3 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 15rem;
+        opacity: 0.02;
+        pointer-events: none;
+        z-index: -1;
+    }
+    
+    /* Gradient Text */
+    .gradient-text {
+        background: var(--gradient-nature);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    /* Divider */
+    .divider {
+        width: 200px;
+        margin: 1.5rem auto;
+    }
+    
+    .divider .line {
+        flex: 1;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    }
+    
+    /* Feature Cards */
+    .feature-card-detailed {
+        background: white;
+        border-radius: 30px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(46, 125, 50, 0.1);
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+    }
+    
+    .feature-card-detailed:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 25px 60px rgba(46, 125, 50, 0.15);
+        border-color: transparent;
+    }
+    
+    .feature-card-detailed::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: var(--gradient-nature);
+        transform: scaleX(0);
+        transition: transform 0.4s ease;
+        transform-origin: left;
+    }
+    
+    .feature-card-detailed:hover::before {
+        transform: scaleX(1);
+    }
+    
+    .card-content {
+        position: relative;
+        z-index: 1;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    /* Feature Icon */
+    .feature-icon-wrapper {
+        display: flex;
+        justify-content: flex-start;
+    }
+    
+    .feature-icon-circle {
+        width: 70px;
+        height: 70px;
+        background: var(--gradient-nature);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 20px rgba(46, 125, 50, 0.2);
+        transition: all 0.3s ease;
+    }
+    
+    .feature-card-detailed:hover .feature-icon-circle {
+        transform: scale(1.1) rotate(5deg);
+        border-radius: 25px;
+    }
+    
+    .feature-icon-circle i {
+        font-size: 2rem;
+        color: white;
+    }
+    
+    /* Card Title */
+    .card-title {
+        color: var(--text-dark);
+        font-size: 1.5rem;
+        position: relative;
+        display: inline-block;
+    }
+    
+    .card-title::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background: var(--gradient-nature);
+        border-radius: 2px;
+        transition: width 0.3s ease;
+    }
+    
+    .feature-card-detailed:hover .card-title::after {
+        width: 60px;
+    }
+    
+    /* Card Text */
+    .card-text {
+        line-height: 1.7;
+        flex-grow: 1;
+    }
+    
+    /* Card Decor */
+    .card-decor {
+        position: absolute;
+        bottom: 10px;
+        right: 20px;
+        font-size: 4rem;
+        opacity: 0.05;
+        font-weight: 700;
+        color: var(--primary-color);
+        pointer-events: none;
+        transition: all 0.3s ease;
+    }
+    
+    .feature-card-detailed:hover .card-decor {
+        opacity: 0.1;
+        transform: scale(1.1) rotate(5deg);
+    }
+    
+    /* Stats Wrapper */
+    .stats-wrapper-detailed {
+        background: linear-gradient(135deg, #f1f9f1 0%, #e8f5e8 100%);
+        border: 1px solid rgba(46, 125, 50, 0.1);
+        backdrop-filter: blur(10px);
+    }
+    
+    /* Trust Items */
+    .trust-item {
+        background: white;
+        padding: 1rem;
+        border-radius: 15px;
+        border: 1px solid rgba(46, 125, 50, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .trust-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(46, 125, 50, 0.1);
+        border-color: var(--primary-color);
+    }
+    
+    /* Badge Styles */
+    .badge.bg-success-subtle {
+        background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%);
+        color: var(--primary-dark);
+        font-weight: 500;
+        border: 1px solid rgba(46, 125, 50, 0.2);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .decor-bg-leaf-1,
+        .decor-bg-leaf-2,
+        .decor-bg-leaf-3 {
+            font-size: 5rem;
+        }
+        
+        .feature-icon-circle {
+            width: 60px;
+            height: 60px;
+        }
+        
+        .feature-icon-circle i {
+            font-size: 1.5rem;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+        }
+        
+        .stats-wrapper-detailed {
+            padding: 2rem !important;
+        }
+    }
+</style>
+
+<!-- Add AOS Animation Library if not already included -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,420 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Detect Disease Page with LeafXpert Theme -->
+<section class="position-relative py-5">
+    <!-- Decorative Background Elements -->
+    <div class="decor-bg-leaf-1">🌿</div>
+    <div class="decor-bg-leaf-2">🍃</div>
+    <div class="decor-bg-leaf-3">🌱</div>
+    
+    <div class="container">
+        <form class="text-center" action="/submit" method="POST" enctype="multipart/form-data">
+            <!-- Header Section -->
+            <div class="row mb-5">
+                <div class="col-md-8 col-xl-6 text-center mx-auto" data-aos="fade-down">
+                    <!-- Badge -->
+                    <div class="d-inline-block mb-3">
+                        <span class="badge bg-success-subtle text-success-emphasis px-3 py-2 rounded-pill">
+                            <i class="fas fa-leaf me-2"></i>AI-Powered Diagnosis
+                        </span>
+                    </div>
+                    
+                    <!-- Main Heading -->
+                    <h2 class="display-5 fw-bold mb-3">
+                        <span class="gradient-text">Detect Disease</span>
+                    </h2>
+                    
+                    <!-- Description with Icon -->
+                    <div class="d-flex align-items-center justify-content-center gap-2 text-secondary mb-2">
+                        <i class="fas fa-cloud-upload-alt fs-4 text-success"></i>
+                        <h6 class="text-center mb-0 text-muted">
+                            Simply upload your plant's leaf image and witness the magic of AI
+                        </h6>
+                    </div>
+                    
+                    <!-- Quick Tips -->
+                    <div class="mt-3">
+                        <span class="badge bg-light text-dark me-2">
+                            <i class="fas fa-camera me-1 text-success"></i>Clear image
+                        </span>
+                        <span class="badge bg-light text-dark me-2">
+                            <i class="fas fa-leaf me-1 text-success"></i>Single leaf
+                        </span>
+                        <span class="badge bg-light text-dark">
+                            <i class="fas fa-sun me-1 text-success"></i>Good lighting
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Upload Card -->
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <div class="upload-card mb-5" data-aos="zoom-in">
+                        <div class="card-body p-4 p-xl-5">
+                            <!-- Upload Icon and Image -->
+                            <div class="upload-area mb-4" id="uploadArea">
+                                <div class="upload-icon-wrapper mb-3">
+                                    <div class="upload-icon-circle">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                    </div>
+                                </div>
+                                
+                                <!-- Upload Text -->
+                                <div class="upload-text mb-3">
+                                    <p class="text-secondary mb-1">
+                                        <i class="fas fa-arrow-up text-success me-1"></i>
+                                        Drag & drop or <span class="text-success fw-bold">browse</span>
+                                    </p>
+                                    <small class="text-muted">Supported: JPG, PNG, JPEG (Max 10MB)</small>
+                                </div>
+                                
+                                <!-- File Input (Hidden) -->
+                                <input id="fileInput" class="d-none" type="file" name="image" accept="image/*">
+                            </div>
+                            
+                            <!-- Selected File Name -->
+                            <div id="fileInfo" class="mb-4 file-info d-none">
+                                <div class="alert alert-success d-flex align-items-center justify-content-between" role="alert">
+                                    <div>
+                                        <i class="fas fa-check-circle me-2"></i>
+                                        <span id="fileName">Selected file</span>
+                                    </div>
+                                    <button type="button" class="btn-close" id="removeFile" aria-label="Close"></button>
+                                </div>
+                            </div>
+                            
+                            <!-- Upload Button (acts as file trigger) -->
+                            <div class="mb-3">
+                                <button type="button" id="selectFileBtn" class="btn btn-outline-modern w-100 py-3">
+                                    <i class="fas fa-folder-open me-2"></i>
+                                    Choose Image
+                                </button>
+                            </div>
+                            
+                            <!-- Submit Button -->
+                            <div class="mb-3">
+                                <button class="btn btn-primary-modern w-100 py-3" type="submit" id="submitBtn" disabled>
+                                    <i class="fas fa-microscope me-2"></i>
+                                    Analyze Disease
+                                    <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<style>
+    /* Additional styling for detect page */
+    .decor-bg-leaf-1 {
+        position: absolute;
+        top: 10%;
+        left: 5%;
+        font-size: 8rem;
+        opacity: 0.03;
+        transform: rotate(-15deg);
+        pointer-events: none;
+        z-index: -1;
+    }
+    
+    .decor-bg-leaf-2 {
+        position: absolute;
+        bottom: 5%;
+        right: 5%;
+        font-size: 10rem;
+        opacity: 0.03;
+        transform: rotate(25deg);
+        pointer-events: none;
+        z-index: -1;
+    }
+    
+    .decor-bg-leaf-3 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 15rem;
+        opacity: 0.02;
+        pointer-events: none;
+        z-index: -1;
+    }
+    
+    /* Upload Card Styling */
+    .upload-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(46, 125, 50, 0.15);
+        border: 1px solid rgba(46, 125, 50, 0.1);
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+    
+    .upload-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 30px 80px rgba(46, 125, 50, 0.2);
+    }
+    
+    /* Upload Area */
+    .upload-area {
+        background: linear-gradient(135deg, #f8faf8 0%, #f0f7f0 100%);
+        border: 2px dashed rgba(46, 125, 50, 0.3);
+        border-radius: 30px;
+        padding: 2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .upload-area:hover {
+        border-color: var(--primary-color);
+        background: linear-gradient(135deg, #f1f9f1 0%, #e8f5e8 100%);
+    }
+    
+    .upload-area.dragover {
+        border-color: var(--primary-color);
+        background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%);
+        transform: scale(1.02);
+    }
+    
+    /* Upload Icon */
+    .upload-icon-circle {
+        width: 80px;
+        height: 80px;
+        background: var(--gradient-nature);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        box-shadow: 0 10px 20px rgba(46, 125, 50, 0.3);
+    }
+    
+    .upload-icon-circle i {
+        font-size: 2.5rem;
+        color: white;
+    }
+    
+    /* Preview Image */
+    .preview-img {
+        max-height: 180px;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .preview-img:hover {
+        transform: scale(1.02);
+    }
+    
+    /* File Info */
+    .file-info .alert {
+        border-radius: 50px;
+        background: linear-gradient(135deg, #f1f9f1 0%, #e8f5e8 100%);
+        border: 1px solid var(--primary-color);
+        color: var(--primary-dark);
+    }
+    
+    /* Info Cards */
+    .info-card {
+        background: white;
+        border-radius: 20px;
+        border: 1px solid rgba(46, 125, 50, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .info-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(46, 125, 50, 0.1);
+        border-color: var(--primary-color);
+    }
+    
+    .info-card h6 {
+        font-weight: 700;
+        color: var(--primary-dark);
+        font-size: 1.1rem;
+    }
+    
+    /* Buttons */
+    .btn-primary-modern {
+        background: var(--gradient-nature);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(46, 125, 50, 0.2);
+    }
+    
+    .btn-primary-modern:hover:not(:disabled) {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(46, 125, 50, 0.3);
+        color: white;
+    }
+    
+    .btn-primary-modern:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+    
+    .btn-outline-modern {
+        background: transparent;
+        color: var(--primary-color);
+        border: 2px solid var(--primary-color);
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-outline-modern:hover {
+        background: var(--gradient-nature);
+        color: white;
+        border-color: transparent;
+        transform: translateY(-3px);
+    }
+    
+    /* Trust Indicators */
+    .trust-indicators small i {
+        font-size: 0.9rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .upload-card {
+            margin: 0 1rem;
+        }
+        
+        .decor-bg-leaf-1,
+        .decor-bg-leaf-2,
+        .decor-bg-leaf-3 {
+            font-size: 5rem;
+        }
+        
+        .preview-img {
+            max-height: 150px;
+        }
+    }
+</style>
+
+<script>
+    // File upload handling with preview
+    document.addEventListener('DOMContentLoaded', function() {
+        const fileInput = document.getElementById('fileInput');
+        const selectFileBtn = document.getElementById('selectFileBtn');
+        const uploadArea = document.getElementById('uploadArea');
+        const previewImage = document.getElementById('previewImage');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const removeFile = document.getElementById('removeFile');
+        const submitBtn = document.getElementById('submitBtn');
+        
+        // Trigger file input click
+        selectFileBtn.addEventListener('click', function() {
+            fileInput.click();
+        });
+        
+        // Click on upload area
+        uploadArea.addEventListener('click', function() {
+            fileInput.click();
+        });
+        
+        // Drag and drop handlers
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        
+        uploadArea.addEventListener('dragleave', function() {
+            uploadArea.classList.remove('dragover');
+        });
+        
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            
+            if (e.dataTransfer.files.length) {
+                fileInput.files = e.dataTransfer.files;
+                handleFileSelect(e.dataTransfer.files[0]);
+            }
+        });
+        
+        // File input change handler
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                handleFileSelect(this.files[0]);
+            }
+        });
+        
+        // Handle file selection
+        function handleFileSelect(file) {
+            // Validate file type
+            const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+            if (!validTypes.includes(file.type)) {
+                alert('Please upload a valid image file (JPG, PNG, JPEG)');
+                fileInput.value = '';
+                return;
+            }
+            
+            // Validate file size (10MB)
+            if (file.size > 10 * 1024 * 1024) {
+                alert('File size must be less than 10MB');
+                fileInput.value = '';
+                return;
+            }
+            
+            // Show file info
+            fileName.textContent = file.name;
+            fileInfo.classList.remove('d-none');
+            
+            // Enable submit button
+            submitBtn.disabled = false;
+            
+            // Show preview
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImage.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        // Remove file
+        removeFile.addEventListener('click', function() {
+            fileInput.value = '';
+            fileInfo.classList.add('d-none');
+            submitBtn.disabled = true;
+            previewImage.src = "{{ url_for('static', filename='img/plant-1573.png') }}";
+        });
+        
+        // Prevent form submission if no file
+        document.querySelector('form').addEventListener('submit', function(e) {
+            if (!fileInput.files || !fileInput.files[0]) {
+                e.preventDefault();
+                alert('Please select an image first');
+            }
+        });
+    });
+    
+    // Android file input function (preserved)
+    function openStorageOption() {
+        Android.openFileInput();
+    }
+</script>
+
+<!-- Add AOS Animation Library if not already included -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100
+    });
+</script>
+
+{% endblock %}

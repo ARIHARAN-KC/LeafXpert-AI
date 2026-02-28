@@ -1,0 +1,506 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- ChatBot Page with LeafXpert Theme -->
+<section class="position-relative py-5">
+    <!-- Decorative Background Elements -->
+    <div class="decor-bg-leaf-1">🌿</div>
+    <div class="decor-bg-leaf-2">🍃</div>
+    <div class="decor-bg-leaf-3">🌱</div>
+    
+    <div class="container position-relative">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+                <!-- Header Badge -->
+                <div class="text-center mb-4" data-aos="fade-down">
+                    <div class="d-inline-block mb-3">
+                        <span class="badge bg-success-subtle text-success-emphasis px-3 py-2 rounded-pill">
+                            <i class="fas fa-robot me-2"></i>AI Assistant
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Chat Card -->
+                <div class="chat-card mb-5" data-aos="zoom-in">
+                    <div class="card-body p-4 p-sm-5">
+                        <!-- Chat Header -->
+                        <div class="chat-header text-center mb-4">
+                            <div class="chat-avatar mb-3">
+                                <div class="avatar-circle">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                            </div>
+                            <h2 class="gradient-text fw-bold mb-2">LeafXpert Assistant</h2>
+                            <p class="text-muted small">
+                                <i class="fas fa-circle text-success me-1" style="font-size: 0.5rem;"></i>
+                                Online - Ready to help
+                            </p>
+                        </div>
+
+                        <form method="POST" action="/response" id="chatForm">
+                            <!-- Chat Messages Area (if response exists) -->
+                            {% if resp %}
+                            <div class="chat-messages mb-4">
+                                <!-- User Message -->
+                                <div class="message user-message">
+                                    <div class="message-content">
+                                        <div class="message-sender">
+                                            <i class="fas fa-user me-2"></i>You
+                                        </div>
+                                        <div class="message-bubble user-bubble">
+                                            {{ resp.query }}
+                                        </div>
+                                        <div class="message-time">{{ resp.timestamp if resp.timestamp else 'Just now' }}</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Bot Response -->
+                                <div class="message bot-message">
+                                    <div class="message-content">
+                                        <div class="message-sender">
+                                            <i class="fas fa-robot me-2 text-success"></i>LeafXpert AI
+                                        </div>
+                                        <div class="message-bubble bot-bubble">
+                                            {{ resp.answer }}
+                                        </div>
+                                        <div class="message-time">{{ resp.timestamp if resp.timestamp else 'Just now' }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            <!-- Input Area -->
+                            <div class="input-area">
+                                <div class="input-wrapper">
+                                    <textarea class="form-control chat-input" 
+                                              id="text" 
+                                              name="text" 
+                                              placeholder="Ask me about plant diseases, treatment, care tips..." 
+                                              rows="2"
+                                              required></textarea>
+                                    
+                                    <!-- Quick Question Suggestions -->
+                                    <div class="suggestions-wrapper mt-2">
+                                        <small class="text-muted d-block mb-2">Quick questions:</small>
+                                        <div class="suggestions-list">
+                                            <button type="button" class="suggestion-chip" onclick="setQuestion('How to treat early blight in tomatoes?')">
+                                                <i class="fas fa-leaf me-1"></i>Early blight treatment
+                                            </button>
+                                            <button type="button" class="suggestion-chip" onclick="setQuestion('What causes yellow leaves on plants?')">
+                                                <i class="fas fa-leaf me-1"></i>Yellow leaves cause
+                                            </button>
+                                            <button type="button" class="suggestion-chip" onclick="setQuestion('Best fungicide for powdery mildew?')">
+                                                <i class="fas fa-flask me-1"></i>Powdery mildew
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Action Buttons -->
+                                <div class="action-buttons mt-3">
+                                    <button class="btn btn-primary-modern w-100 py-3" id="submit-button" type="submit">
+                                        <i class="fas fa-paper-plane me-2"></i>
+                                        Send Message
+                                        <i class="fas fa-arrow-right ms-2"></i>
+                                    </button>
+                                </div>
+                                
+                                <!-- Voice Input Option -->
+                                <div class="voice-option text-center mt-3">
+                                    <a href="{{ url_for('voice_page') }}" class="text-decoration-none">
+                                        <small class="text-success">
+                                            <i class="fas fa-microphone-alt me-1"></i>
+                                            Prefer voice? Try Voice Assistant
+                                        </small>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Loading Indicator (hidden by default) -->
+                            <div id="loadingIndicator" class="loading-indicator text-center mt-3" style="display: none;">
+                                <div class="spinner-border text-success" role="status" style="width: 2rem; height: 2rem;">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <p class="mt-2 text-muted small">LeafXpert AI is thinking...</p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Chat Features -->
+                <div class="row g-3 text-center" data-aos="fade-up">
+                    <div class="col-4">
+                        <div class="feature-mini-card">
+                            <i class="fas fa-leaf text-success"></i>
+                            <small>Plant Care</small>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="feature-mini-card">
+                            <i class="fas fa-bug text-success"></i>
+                            <small>Pest Control</small>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="feature-mini-card">
+                            <i class="fas fa-flask text-success"></i>
+                            <small>Treatment</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Decorative Background Elements */
+    .decor-bg-leaf-1 {
+        position: absolute;
+        top: 10%;
+        left: 5%;
+        font-size: 8rem;
+        opacity: 0.03;
+        transform: rotate(-15deg);
+        pointer-events: none;
+        z-index: -1;
+    }
+    
+    .decor-bg-leaf-2 {
+        position: absolute;
+        bottom: 5%;
+        right: 5%;
+        font-size: 10rem;
+        opacity: 0.03;
+        transform: rotate(25deg);
+        pointer-events: none;
+        z-index: -1;
+    }
+    
+    .decor-bg-leaf-3 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 15rem;
+        opacity: 0.02;
+        pointer-events: none;
+        z-index: -1;
+    }
+    
+    /* Chat Card Styling */
+    .chat-card {
+        background: white;
+        border-radius: 40px;
+        box-shadow: 0 20px 60px rgba(46, 125, 50, 0.15);
+        border: 1px solid rgba(46, 125, 50, 0.1);
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+    
+    .chat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 30px 80px rgba(46, 125, 50, 0.2);
+    }
+    
+    /* Avatar */
+    .avatar-circle {
+        width: 80px;
+        height: 80px;
+        background: var(--gradient-nature);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        box-shadow: 0 10px 20px rgba(46, 125, 50, 0.3);
+    }
+    
+    .avatar-circle i {
+        font-size: 2.5rem;
+        color: white;
+    }
+    
+    /* Gradient Text */
+    .gradient-text {
+        background: var(--gradient-nature);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    /* Chat Messages */
+    .chat-messages {
+        max-height: 300px;
+        overflow-y: auto;
+        padding: 0.5rem;
+        margin-bottom: 1.5rem;
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary-color) #f0f7f0;
+    }
+    
+    .chat-messages::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    .chat-messages::-webkit-scrollbar-track {
+        background: #f0f7f0;
+        border-radius: 10px;
+    }
+    
+    .chat-messages::-webkit-scrollbar-thumb {
+        background: var(--primary-color);
+        border-radius: 10px;
+    }
+    
+    .message {
+        margin-bottom: 1.5rem;
+    }
+    
+    .message-content {
+        position: relative;
+    }
+    
+    .message-sender {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 0.3rem;
+    }
+    
+    .message-bubble {
+        padding: 1rem;
+        border-radius: 20px;
+        max-width: 90%;
+        word-wrap: break-word;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+    
+    .user-message {
+        text-align: right;
+    }
+    
+    .user-message .message-bubble {
+        background: var(--gradient-nature);
+        color: white;
+        margin-left: auto;
+        border-bottom-right-radius: 5px;
+    }
+    
+    .bot-message .message-bubble {
+        background: #f8faf8;
+        border: 1px solid rgba(46, 125, 50, 0.1);
+        border-bottom-left-radius: 5px;
+    }
+    
+    .message-time {
+        font-size: 0.7rem;
+        color: #999;
+        margin-top: 0.3rem;
+    }
+    
+    /* Input Area */
+    .input-wrapper {
+        position: relative;
+    }
+    
+    .chat-input {
+        border: 2px solid rgba(46, 125, 50, 0.2);
+        border-radius: 20px;
+        padding: 1rem;
+        font-size: 0.95rem;
+        resize: none;
+        transition: all 0.3s ease;
+    }
+    
+    .chat-input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.25);
+        outline: none;
+    }
+    
+    /* Suggestions */
+    .suggestions-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .suggestion-chip {
+        background: white;
+        border: 1px solid rgba(46, 125, 50, 0.2);
+        border-radius: 50px;
+        padding: 0.4rem 1rem;
+        font-size: 0.8rem;
+        color: var(--text-dark);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+    }
+    
+    .suggestion-chip:hover {
+        background: var(--gradient-soft);
+        border-color: var(--primary-color);
+        transform: translateY(-2px);
+    }
+    
+    /* Buttons */
+    .btn-primary-modern {
+        background: var(--gradient-nature);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(46, 125, 50, 0.2);
+    }
+    
+    .btn-primary-modern:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(46, 125, 50, 0.3);
+        color: white;
+    }
+    
+    .btn-primary-modern:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+    
+    /* Feature Mini Cards */
+    .feature-mini-card {
+        background: white;
+        border-radius: 15px;
+        padding: 0.8rem;
+        border: 1px solid rgba(46, 125, 50, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .feature-mini-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(46, 125, 50, 0.1);
+        border-color: var(--primary-color);
+    }
+    
+    .feature-mini-card i {
+        display: block;
+        font-size: 1.2rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .feature-mini-card small {
+        color: var(--text-dark);
+        font-weight: 500;
+    }
+    
+    /* Loading Indicator */
+    .loading-indicator {
+        animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    /* Voice Option */
+    .voice-option {
+        padding-top: 0.5rem;
+        border-top: 1px dashed rgba(46, 125, 50, 0.2);
+    }
+    
+    .voice-option a {
+        transition: all 0.3s ease;
+    }
+    
+    .voice-option a:hover {
+        color: var(--primary-dark) !important;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .decor-bg-leaf-1,
+        .decor-bg-leaf-2,
+        .decor-bg-leaf-3 {
+            font-size: 5rem;
+        }
+        
+        .suggestions-list {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+        
+        .suggestion-chip {
+            white-space: nowrap;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('chatForm');
+        const submitButton = document.getElementById('submit-button');
+        const textarea = document.getElementById('text');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        
+        // Auto-resize textarea
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+        
+        // Form submit handler
+        form.addEventListener('submit', function (e) {
+            if (!textarea.value.trim()) {
+                e.preventDefault();
+                alert('Please enter a question');
+                return;
+            }
+            
+            // Show loading, disable button
+            submitButton.disabled = true;
+            loadingIndicator.style.display = 'block';
+            
+            // Change button text
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+            
+            // Form will submit naturally
+        });
+        
+        // Handle enter key (Shift+Enter for new line, Enter to submit)
+        textarea.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                form.submit();
+            }
+        });
+    });
+    
+    // Function to set quick question
+    function setQuestion(question) {
+        const textarea = document.getElementById('text');
+        textarea.value = question;
+        textarea.style.height = 'auto';
+        textarea.style.height = (textarea.scrollHeight) + 'px';
+        textarea.focus();
+    }
+    
+    // Preserved Android function
+    function openStorageOption() {
+        Android.openFileInput();
+    }
+</script>
+
+<!-- Add AOS Animation Library if not already included -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100
+    });
+</script>
+
+{% endblock %}
