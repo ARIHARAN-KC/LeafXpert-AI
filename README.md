@@ -195,8 +195,6 @@ gunicorn==21.2.0  # for production
 
 ```env
 OPENROUTER_API_KEY=your_api_key_here
-FLASK_ENV=development
-SECRET_KEY=your_secret_key
 ```
 
 ### Getting Your OpenRouter API Key
@@ -269,7 +267,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-- **Project Link**: [https://github.com/yourusername/LeafXpert](https://github.com/yourusername/LeafXpert)
+- **Project Link**: https://github.com/ARIHARAN-KC/LeafXpert-AI
 - **Email**: ariharankc@gmail.com
 - **LinkedIn**: https://www.linkedin.com/in/ariharankc07/
 
