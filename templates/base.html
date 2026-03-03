@@ -5,688 +5,875 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>LeafXpert - Intelligent Plant Care Platform</title>
+
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Hero-Clean-Reverse-images.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Navbar-With-Button-icons.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <style>
-        /* LeafXpert Professional Styling - Nature Inspired */
-        :root {
-            --primary-color: #2e7d32;
-            --primary-light: #4caf50;
-            --primary-dark: #1b5e20;
-            --secondary-color: #8bc34a;
-            --accent-color: #ff9800;
-            --dark-bg: #1a2e1a;
-            --light-bg: #f4f9f4;
-            --text-dark: #1e2e1e;
-            --text-light: #5a6e5a;
-            --gradient-nature: linear-gradient(135deg, #2e7d32 0%, #4caf50 50%, #8bc34a 100%);
-            --gradient-soft: linear-gradient(135deg, #f1f9f1 0%, #e8f5e8 100%);
-            --box-shadow: 0 10px 40px rgba(46, 125, 50, 0.15);
-            --box-shadow-hover: 0 20px 60px rgba(46, 125, 50, 0.25);
-        }
 
-        body {
-            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #f8faf8 0%, #f0f7f0 100%);
-            color: var(--text-dark);
-            line-height: 1.7;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Modern Navbar with Logo */
-        .navbar {
-            background: rgba(255, 255, 255, 0.97) !important;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.03);
-            padding: 0.8rem 0;
-            transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
-            border-image: var(--gradient-nature);
-            border-image-slice: 1;
-        }
-
-        .navbar.scrolled {
-            padding: 0.5rem 0;
-            background: rgba(255, 255, 255, 0.98) !important;
-            box-shadow: 0 4px 30px rgba(46, 125, 50, 0.1);
-        }
-
-        /* Logo Styling */
-        .navbar-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 0;
-            margin-right: 2rem;
-            position: relative;
-        }
-
-        .logo-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .logo-img {
-            height: 45px;
-            width: auto;
-            filter: drop-shadow(0 4px 8px rgba(46, 125, 50, 0.2));
-            transition: all 0.3s ease;
-        }
-
-        .logo-img:hover {
-            transform: rotate(5deg) scale(1.05);
-            filter: drop-shadow(0 6px 12px rgba(46, 125, 50, 0.3));
-        }
-
-        .logo-text {
-            font-size: 1.6rem;
-            font-weight: 700;
-            background: var(--gradient-nature);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.5px;
-            position: relative;
-            line-height: 1;
-        }
-
-        .logo-badge {
-            font-size: 0.7rem;
-            background: var(--gradient-nature);
-            color: white;
-            padding: 2px 8px;
-            border-radius: 50px;
-            margin-left: 8px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            vertical-align: middle;
-            -webkit-text-fill-color: white;
-        }
-
-        /* Navigation Links */
-        .navbar-nav {
-            gap: 0.5rem;
-        }
-
-        .navbar-nav .nav-link {
-            font-weight: 500;
-            color: var(--text-dark) !important;
-            padding: 0.7rem 1.5rem !important;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            position: relative;
-            font-size: 1rem;
-        }
-
-        .navbar-nav .nav-link i {
-            margin-right: 8px;
-            font-size: 1.1rem;
-            color: var(--primary-color);
-            transition: all 0.3s ease;
-        }
-
-        .navbar-nav .nav-link:hover {
-            background: var(--gradient-soft);
-            color: var(--primary-dark) !important;
-            transform: translateY(-2px);
-        }
-
-        .navbar-nav .nav-link:hover i {
-            transform: scale(1.1) rotate(5deg);
-            color: var(--primary-dark);
-        }
-
-        .navbar-nav .nav-link.active {
-            background: var(--gradient-nature);
-            color: white !important;
-            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
-        }
-
-        .navbar-nav .nav-link.active i {
-            color: white;
-        }
-
-        /* Modern Button Group - Nature Theme */
-        .btn-group-modern {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            margin-left: 1rem;
-        }
-
-        .btn-modern {
-            padding: 0.7rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            letter-spacing: 0.3px;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .btn-modern i {
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-
-        .btn-modern::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s ease;
-            z-index: -1;
-        }
-
-        .btn-modern:hover::before {
-            left: 100%;
-        }
-
-        /* ChatBot Button - Outline Style */
-        .btn-outline-nature {
-            background: transparent;
-            color: var(--primary-color);
-            border: 2px solid var(--primary-color);
-            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.1);
-        }
-
-        .btn-outline-nature:hover {
-            background: var(--gradient-nature);
-            color: white;
-            border-color: transparent;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(46, 125, 50, 0.3);
-        }
-
-        .btn-outline-nature:hover i {
-            color: white;
-            transform: rotate(10deg);
-        }
-
-        /* Voice Button - Solid Style */
-        .btn-solid-nature {
-            background: var(--gradient-nature);
-            color: white;
-            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
-            border: 2px solid transparent;
-        }
-
-        .btn-solid-nature:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(46, 125, 50, 0.4);
-        }
-
-        .btn-solid-nature:hover i {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        /* Navbar Toggle Button */
-        .navbar-toggler {
-            border: 2px solid var(--primary-light);
-            padding: 0.6rem;
-            border-radius: 12px;
-            background: white;
-            transition: all 0.3s ease;
-        }
-
-        .navbar-toggler:focus {
-            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.25);
-            outline: none;
-        }
-
-        .navbar-toggler:hover {
-            transform: scale(1.05);
-            background: var(--gradient-soft);
-        }
-
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(46, 125, 50, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
-
-        /* Main Content Area */
-        .main-content {
-            flex: 1;
-            min-height: calc(100vh - 90px);
-            padding: 2rem 0;
-            animation: fadeInUp 0.6s ease;
-            position: relative;
-        }
-
-        .main-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.03"><path d="M20 30 Q 40 10 60 30 Q 80 50 60 70 Q 40 90 20 70 Q 0 50 20 30" fill="%232e7d32"/></svg>') repeat;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Container */
-        .container {
-            max-width: 1400px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Leaf-themed Card Styles */
-        .leaf-card {
-            background: white;
-            border-radius: 30px;
-            padding: 2.5rem;
-            box-shadow: var(--box-shadow);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(76, 175, 80, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .leaf-card::before {
-            content: '🌿';
-            position: absolute;
-            bottom: -20px;
-            right: -20px;
-            font-size: 100px;
-            opacity: 0.05;
-            transform: rotate(15deg);
-        }
-
-        .leaf-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--box-shadow-hover);
-            border-color: var(--primary-light);
-        }
-
-        /* Typography */
-        h1, h2, h3, h4, h5, h6 {
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            background: var(--gradient-nature);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Footer Styles */
-        .footer {
-            background: white;
-            border-top: 3px solid transparent;
-            border-image: var(--gradient-nature);
-            border-image-slice: 1;
-            padding: 1.5rem 0;
-            margin-top: auto;
-            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.03);
-        }
-
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-        }
-
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .footer-logo img {
-            height: 30px;
-            width: auto;
-        }
-
-        .footer-logo span {
-            font-size: 1.2rem;
-            font-weight: 600;
-            background: var(--gradient-nature);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .footer-copyright {
-            color: var(--text-light);
-            font-size: 0.95rem;
-            text-align: center;
-        }
-
-        .footer-copyright i {
-            color: var(--primary-color);
-            margin: 0 4px;
-        }
-
-        .footer-heart {
-            color: #ff4d4d;
-            animation: heartbeat 1.5s ease-in-out infinite;
-        }
-
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .footer-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary-color);
-            transform: translateY(-2px);
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .footer-social a {
-            width: 35px;
-            height: 35px;
-            background: var(--gradient-soft);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-color);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(46, 125, 50, 0.1);
-        }
-
-        .footer-social a:hover {
-            background: var(--gradient-nature);
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 991px) {
-            .navbar-collapse {
-                background: white;
-                padding: 1.5rem;
-                border-radius: 20px;
-                margin-top: 1rem;
-                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            }
-            
-            .navbar-nav {
-                gap: 0.3rem;
-            }
-            
-            .navbar-nav .nav-link {
-                padding: 0.8rem 1.2rem !important;
-                border-radius: 12px;
-            }
-            
-            .btn-group-modern {
-                flex-direction: column;
-                width: 100%;
-                margin-left: 0;
-                margin-top: 1rem;
-                gap: 0.8rem;
-            }
-            
-            .btn-modern {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .logo-text {
-                font-size: 1.4rem;
-            }
-            
-            .logo-img {
-                height: 40px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .logo-wrapper {
-                gap: 8px;
-            }
-            
-            .logo-text {
-                font-size: 1.2rem;
-            }
-            
-            .logo-badge {
-                display: none;
-            }
-            
-            .logo-img {
-                height: 35px;
-            }
-
-            .footer-links {
-                gap: 1rem;
-            }
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 12px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--gradient-soft);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--gradient-nature);
-            border-radius: 10px;
-            border: 3px solid #f1f9f1;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
-        }
-
-        /* Floating Animation */
-        .float-animation {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
-    </style>
 </head>
 
+<style>
+    /* ================= GLOBAL STYLES ================= */
+:root {
+    --primary: #2E7D32;
+    --primary-dark: #1B5E20;
+    --primary-light: #4CAF50;
+    --secondary: #8B5A2B;
+    --accent: #FFB74D;
+    --text-dark: #1C2E1C;
+    --text-light: #F1F8E9;
+    --bg-light: #F9FBF9;
+    --bg-gradient: linear-gradient(135deg, #F1F8E9 0%, #FFFFFF 100%);
+    --shadow-sm: 0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1);
+    --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+    --border-radius: 12px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* ================= TYPOGRAPHY ================= */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+h1 { 
+    font-size: 2.5rem; 
+    letter-spacing: -0.02em; 
+}
+
+h2 { 
+    font-size: 2rem; 
+    letter-spacing: -0.01em; 
+}
+
+h3 { 
+    font-size: 1.75rem; 
+}
+
+h4 { 
+    font-size: 1.5rem; 
+}
+
+p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}
+
+/* ================= NAVBAR STYLES ================= */
+#mainNavbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding: 0.75rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: transform 0.3s ease;
+}
+
+.logo-wrapper:hover {
+    transform: scale(1.02);
+}
+
+.logo-img {
+    height: 45px;
+    width: auto;
+    transition: filter 0.3s ease;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: var(--text-dark);
+    padding: 0.75rem 1.25rem !important;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin: 0 0.25rem;
+    position: relative;
+}
+
+.nav-link i {
+    margin-right: 0.5rem;
+    color: var(--primary-light);
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    background: rgba(46, 125, 50, 0.08);
+    color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.nav-link.active {
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+    color: white !important;
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-link.active i {
+    color: white;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 80%;
+}
+
+.nav-link.active::after {
+    width: 80%;
+    background: white;
+}
+
+/* ================= MODERN BUTTON STYLES ================= */
+.btn-group-modern {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.btn-modern {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border: 2px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-modern i {
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.btn-modern:hover i {
+    transform: scale(1.1);
+}
+
+/* Solid Nature Button */
+.btn-solid-nature {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+    border: none;
+}
+
+.btn-solid-nature:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4);
+    color: white;
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+}
+
+.btn-solid-nature:active {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(46, 125, 50, 0.4);
+}
+
+.btn-solid-nature::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-solid-nature:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Outline Nature Button */
+.btn-outline-nature {
+    background: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary-light);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-outline-nature:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+    transition: left 0.3s ease;
+    z-index: -1;
+}
+
+.btn-outline-nature:hover {
+    color: white;
+    border-color: transparent;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+}
+
+.btn-outline-nature:hover:before {
+    left: 0;
+}
+
+/* Special style for user indicator */
+.btn-outline-nature[style*="cursor:default"] {
+    background: rgba(46, 125, 50, 0.1);
+    border-color: var(--primary-light);
+    color: var(--primary-dark);
+    cursor: default !important;
+    box-shadow: none;
+    transform: none;
+    pointer-events: none;
+}
+
+.btn-outline-nature[style*="cursor:default"] i {
+    color: var(--primary);
+}
+
+/* ================= MAIN CONTENT ================= */
+.main-content {
+    flex: 1;
+    padding: 3rem 0;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ================= CARD STYLES ================= */
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    height: 100%;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
+}
+
+.card-header {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(46, 125, 50, 0.1) 100%);
+    border-bottom: 1px solid rgba(46, 125, 50, 0.2);
+    padding: 1.25rem;
+    font-weight: 600;
+}
+
+.card-header:first-child {
+    border-radius: calc(var(--border-radius) - 1px) calc(var(--border-radius) - 1px) 0 0;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-footer {
+    background: rgba(46, 125, 50, 0.05);
+    border-top: 1px solid rgba(46, 125, 50, 0.1);
+    padding: 1rem 1.5rem;
+}
+
+/* ================= FORM STYLES ================= */
+.form-control, .form-select {
+    border: 2px solid #E8F0E8;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+    background: white;
+    font-size: 1rem;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 0.25rem rgba(76, 175, 80, 0.25);
+    outline: none;
+}
+
+.form-label {
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.form-text {
+    color: #6B7A6B;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+/* Input groups */
+.input-group {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.input-group-text {
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.25rem;
+}
+
+/* Checkbox and Radio styles */
+.form-check-input {
+    width: 1.2em;
+    height: 1.2em;
+    margin-top: 0.15em;
+    border: 2px solid #E8F0E8;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.form-check-input:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 0.25rem rgba(76, 175, 80, 0.25);
+}
+
+/* ================= TABLE STYLES ================= */
+.table {
+    --bs-table-bg: transparent;
+    --bs-table-striped-bg: rgba(46, 125, 50, 0.02);
+    --bs-table-hover-bg: rgba(76, 175, 80, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead th {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(46, 125, 50, 0.1) 100%);
+    border-bottom: 2px solid var(--primary-light);
+    color: var(--text-dark);
+    font-weight: 600;
+    padding: 1rem;
+}
+
+.table td {
+    padding: 1rem;
+    vertical-align: middle;
+}
+
+/* ================= ALERT STYLES ================= */
+.alert {
+    border: none;
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid transparent;
+    box-shadow: var(--shadow-sm);
+}
+
+.alert-success {
+    background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+    color: var(--primary-dark);
+    border-left-color: var(--primary);
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%);
+    color: #B71C1C;
+    border-left-color: #F44336;
+}
+
+.alert-warning {
+    background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+    color: #BF360C;
+    border-left-color: #FF9800;
+}
+
+.alert-info {
+    background: linear-gradient(135deg, #E1F5FE 0%, #B3E5FC 100%);
+    color: #01579B;
+    border-left-color: #03A9F4;
+}
+
+/* ================= FOOTER STYLES ================= */
+.footer {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding: 1.5rem 0;
+    margin-top: auto;
+    position: relative;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, var(--primary-light) 25%, var(--primary) 50%, var(--primary-light) 75%, transparent 100%);
+}
+
+.footer p {
+    color: var(--text-dark);
+    opacity: 0.8;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* ================= ANIMATIONS ================= */
+@keyframes slideIn {
+    from {
+        transform: translateX(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.navbar-brand {
+    animation: slideIn 0.6s ease;
+}
+
+/* ================= LOADING SPINNER ================= */
+.spinner-nature {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(76, 175, 80, 0.1);
+    border-left-color: var(--primary);
+    border-right-color: var(--primary-light);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ================= PROGRESS BAR ================= */
+.progress {
+    height: 0.75rem;
+    border-radius: 1rem;
+    background-color: #E8F0E8;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, var(--primary-light) 0%, var(--primary) 100%);
+    border-radius: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* ================= RESPONSIVE DESIGN ================= */
+@media (max-width: 1199.98px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .btn-group-modern {
+        margin-top: 1rem;
+        justify-content: center;
+    }
+    
+    .navbar-nav {
+        padding: 1rem 0;
+    }
+    
+    .nav-link {
+        text-align: center;
+        justify-content: center;
+    }
+    
+    .logo-img {
+        height: 35px;
+    }
+    
+    .logo-text {
+        font-size: 1.25rem;
+    }
+    
+    h1 { 
+        font-size: 2rem; 
+    }
+    
+    h2 { 
+        font-size: 1.75rem; 
+    }
+}
+
+@media (max-width: 767.98px) {
+    .main-content {
+        padding: 2rem 0;
+    }
+    
+    .card {
+        margin-bottom: 1rem;
+    }
+    
+    .table {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .main-content {
+        padding: 1.5rem 0;
+    }
+    
+    .btn-modern {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .btn-group-modern {
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+    }
+    
+    .logo-text {
+        font-size: 1.1rem;
+    }
+    
+    h1 { 
+        font-size: 1.75rem; 
+    }
+    
+    h2 { 
+        font-size: 1.5rem; 
+    }
+    
+    .card-body {
+        padding: 1.25rem;
+    }
+}
+
+/* ================= UTILITY CLASSES ================= */
+.text-gradient {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.bg-nature-light {
+    background: linear-gradient(135deg, #F1F8E9 0%, #FFFFFF 100%);
+}
+
+.bg-nature-gradient {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+}
+
+.shadow-hover {
+    transition: box-shadow 0.3s ease;
+}
+
+.shadow-hover:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.border-nature {
+    border: 2px solid var(--primary-light);
+}
+
+.border-nature-left {
+    border-left: 4px solid var(--primary);
+}
+
+.rounded-nature {
+    border-radius: var(--border-radius);
+}
+
+.opacity-hover {
+    transition: opacity 0.3s ease;
+}
+
+.opacity-hover:hover {
+    opacity: 0.8;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #F1F8E9;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+    border-radius: 6px;
+    border: 2px solid #F1F8E9;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+}
+
+::-webkit-scrollbar-corner {
+    background: #F1F8E9;
+}
+
+/* Selection styling */
+::selection {
+    background: var(--primary-light);
+    color: white;
+}
+
+::-moz-selection {
+    background: var(--primary-light);
+    color: white;
+}
+
+/* Focus outline */
+:focus-visible {
+    outline: 2px solid var(--primary-light);
+    outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+    #mainNavbar, .footer, .btn-modern {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+    }
+    
+    .main-content {
+        padding: 0;
+    }
+}
+</style>
+
 <body>
-    <!-- Modern Navbar with LeafXpert Logo -->
-    <nav class="navbar navbar-expand-lg bg-body py-3" id="mainNavbar">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url_for('home') }}">
-                <div class="logo-wrapper">
-                    <img src="{{ url_for('static', filename='logo.svg') }}" 
-                         alt="LeafXpert Logo" 
-                         class="logo-img float-animation">
-                    <div>
-                        <span class="logo-text">LeafXpert</span>
-                    </div>
-                </div>
-            </a>
-            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navcol-1" 
-                    aria-controls="navcol-1" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="navcol-1">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link {{ 'active' if request.endpoint == 'ai_detect_page' else '' }}" 
-                           href="{{ url_for('ai_detect_page') }}">
-                            <i class="fas fa-leaf"></i> Detect Disease
-                        </a>
-                    </li>
-                </ul>
-                
-                <div class="btn-group-modern">
-                    <a href="{{ url_for('response') }}" class="btn-modern btn-outline-nature">
-                        <i class="fas fa-robot"></i>
-                        <span>AI Assistant</span>
-                    </a>
-                    <a href="{{ url_for('voice_page') }}" class="btn-modern btn-solid-nature">
-                        <i class="fas fa-microphone-alt"></i>
-                        <span>Voice Command</span>
-                    </a>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar navbar-expand-lg bg-body py-3" id="mainNavbar">
+    <div class="container">
+
+        <!-- Logo -->
+        <a class="navbar-brand" href="{{ url_for('home') }}">
+            <div class="logo-wrapper">
+                <img src="{{ url_for('static', filename='logo.svg') }}" 
+                     alt="LeafXpert Logo" 
+                     class="logo-img">
+                <div>
+                    <span class="logo-text">LeafXpert</span>
                 </div>
             </div>
-        </div>
-    </nav>
+        </a>
 
-    <!-- Main Content Area with Nature Background -->
-    <main class="main-content">
-        <div class="container">
-            {% block content %}
-            <!-- Your page content will be injected here -->
-            {% endblock %}
-        </div>
-    </main>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navcol-1">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <!-- Logo -->
-                <div class="footer-logo">
-                    <img src="{{ url_for('static', filename='logo.svg') }}" alt="LeafXpert Logo">
-                    <span>LeafXpert</span>
-                </div>
+        <div class="collapse navbar-collapse" id="navcol-1">
 
-                <!-- Copyright -->
-                <div class="footer-copyright">
-                    <i class="fas fa-copyright"></i> 2024 LeafXpert. All rights reserved.
-                </div>
+            <!-- Left Side -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link {{ 'active' if request.endpoint == 'ai_detect_page' else '' }}"
+                       href="{{ url_for('ai_detect_page') }}">
+                        <i class="fas fa-leaf"></i> Detect Disease
+                    </a>
+                </li>
+            </ul>
 
-                <!-- Quick Links -->
-                <div class="footer-links">
-                    <a href="{{ url_for('home') }}">Home</a>
-                    <a href="{{ url_for('ai_detect_page') }}">Detect Disease</a>
-                    <a href="{{ url_for('response') }}">AI Assistant</a>
-                    <a href="{{ url_for('voice_page') }}">Voice Command</a>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Use</a>
-                </div>
+            <!-- Right Side Buttons -->
+            <div class="btn-group-modern">
+
+                {% if current_user.is_authenticated %}
+
+                    <!-- Show Username -->
+                    <span class="btn-modern btn-outline-nature" style="cursor:default;">
+                        <i class="fas fa-user"></i>
+                        {{ current_user.username }}
+                    </span>
+
+                    <!-- Logout -->
+                    <a href="{{ url_for('logout') }}" class="btn-modern btn-solid-nature">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </a>
+
+                {% else %}
+
+                    <!-- Login -->
+                    <a href="{{ url_for('login') }}" class="btn-modern btn-outline-nature">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Login
+                    </a>
+
+                    <!-- Sign Up -->
+                    <a href="{{ url_for('signup') }}" class="btn-modern btn-solid-nature">
+                        <i class="fas fa-user-plus"></i>
+                        Sign Up
+                    </a>
+
+                {% endif %}
+
+                <!-- Always Available -->
+                <a href="{{ url_for('response') }}" class="btn-modern btn-outline-nature">
+                    <i class="fas fa-robot"></i>
+                    AI Assistant
+                </a>
+
+                <a href="{{ url_for('voice_page') }}" class="btn-modern btn-solid-nature">
+                    <i class="fas fa-microphone-alt"></i>
+                    Voice Command
+                </a>
 
             </div>
         </div>
-    </footer>
+    </div>
+</nav>
 
-    <!-- Scripts -->
-    <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script>
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('mainNavbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+<!-- ================= MAIN CONTENT ================= -->
+<main class="main-content">
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</main>
 
-        // Close mobile menu on link click
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                const navbarCollapse = document.getElementById('navcol-1');
-                if (navbarCollapse.classList.contains('show')) {
-                    navbarCollapse.classList.remove('show');
-                }
-            });
-        });
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+    <div class="container text-center">
+        <p>© <script>document.write(new Date().getFullYear())</script> LeafXpert. All rights reserved.</p>
+    </div>
+</footer>
 
-        // Active link highlighting based on current URL
-        document.addEventListener('DOMContentLoaded', function() {
-            const currentPath = window.location.pathname;
-            document.querySelectorAll('.nav-link').forEach(link => {
-                if (link.getAttribute('href') === currentPath) {
-                    link.classList.add('active');
-                }
-            });
-        });
+<!-- ================= SCRIPTS ================= -->
+<script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js') }}"></script>
 
-        // Smooth page transitions
-        document.addEventListener('DOMContentLoaded', function() {
-            document.body.style.opacity = '1';
-            
-            // Add fade-out effect on navigation
-            document.querySelectorAll('a:not([target="_blank"])').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    if (this.hostname === window.location.hostname) {
-                        e.preventDefault();
-                        const href = this.href;
-                        document.body.style.opacity = '0';
-                        document.body.style.transition = 'opacity 0.3s ease';
-                        setTimeout(() => {
-                            window.location.href = href;
-                        }, 300);
-                    }
-                });
-            });
-        });
-
-        // Auto-update copyright year
-        document.addEventListener('DOMContentLoaded', function() {
-            const yearElement = document.querySelector('.footer-copyright');
-            if (yearElement) {
-                const currentYear = new Date().getFullYear();
-                yearElement.innerHTML = yearElement.innerHTML.replace('2024', currentYear);
-            }
-        });
-    </script>
 </body>
-
 </html>
