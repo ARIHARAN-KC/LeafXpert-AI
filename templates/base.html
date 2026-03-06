@@ -797,65 +797,69 @@ p {
         </button>
 
         <div class="collapse navbar-collapse" id="navcol-1">
-
-            <!-- Left Side -->
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link {{ 'active' if request.endpoint == 'ai_detect_page' else '' }}"
-                       href="{{ url_for('ai_detect_page') }}">
+            <!-- Right Side Buttons -->
+            <div class="btn-group-modern ms-auto">
+                {% if current_user.is_authenticated %}
+                    <!-- AUTHENTICATED USER: Show 4 options -->
+                    
+                    <!-- Detect Disease -->
+                    <a href="{{ url_for('ai_detect_page') }}" 
+                       class="btn-modern {{ 'btn-solid-nature' if request.endpoint == 'ai_detect_page' else 'btn-outline-nature' }}">
                         <i class="fas fa-leaf"></i> Detect Disease
                     </a>
-                </li>
-            </ul>
-
-            <!-- Right Side Buttons -->
-            <div class="btn-group-modern">
-
-                {% if current_user.is_authenticated %}
-
-                    <!-- Show Username -->
-                    <span class="btn-modern btn-outline-nature" style="cursor:default;">
-                        <i class="fas fa-user"></i>
-                        {{ current_user.username }}
-                    </span>
-
-                    <!-- Logout -->
-                    <a href="{{ url_for('logout') }}" class="btn-modern btn-solid-nature">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Logout
+                    
+                    <!-- AI Assistant -->
+                    <a href="{{ url_for('response') }}" 
+                       class="btn-modern {{ 'btn-solid-nature' if request.endpoint == 'response' else 'btn-outline-nature' }}">
+                        <i class="fas fa-robot"></i> AI Assistant
                     </a>
+                    
+                    <!-- Voice Command -->
+                    <a href="{{ url_for('voice_page') }}" 
+                       class="btn-modern {{ 'btn-solid-nature' if request.endpoint == 'voice_page' else 'btn-outline-nature' }}">
+                        <i class="fas fa-microphone-alt"></i> Voice Command
+                    </a>
+                    
+                    <!-- Username & Logout (combined) -->
+                    <div class="d-flex gap-2">
+                        <span class="btn-modern btn-outline-nature" style="cursor:default;">
+                            <i class="fas fa-user"></i>
+                            {{ current_user.username }}
+                        </span>
+                        <a href="{{ url_for('logout') }}" class="btn-modern btn-solid-nature">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
 
                 {% else %}
-
-                    <!-- Login -->
-                    <a href="{{ url_for('login') }}" class="btn-modern btn-outline-nature">
-                        <i class="fas fa-sign-in-alt"></i>
-                        Login
+                    <!-- UNAUTHENTICATED USER: Show only Login & Signup -->
+                    <a href="{{ url_for('login') }}" 
+                       class="btn-modern {{ 'btn-solid-nature' if request.endpoint == 'login' else 'btn-outline-nature' }}">
+                        <i class="fas fa-sign-in-alt"></i> Login
                     </a>
-
-                    <!-- Sign Up -->
-                    <a href="{{ url_for('signup') }}" class="btn-modern btn-solid-nature">
-                        <i class="fas fa-user-plus"></i>
-                        Sign Up
+                    <a href="{{ url_for('signup') }}" 
+                       class="btn-modern {{ 'btn-solid-nature' if request.endpoint == 'signup' else 'btn-outline-nature' }}">
+                        <i class="fas fa-user-plus"></i> Sign Up
                     </a>
-
                 {% endif %}
-
-                <!-- Always Available -->
-                <a href="{{ url_for('response') }}" class="btn-modern btn-outline-nature">
-                    <i class="fas fa-robot"></i>
-                    AI Assistant
-                </a>
-
-                <a href="{{ url_for('voice_page') }}" class="btn-modern btn-solid-nature">
-                    <i class="fas fa-microphone-alt"></i>
-                    Voice Command
-                </a>
-
             </div>
         </div>
     </div>
 </nav>
+
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="container mt-3">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
 
 <!-- ================= MAIN CONTENT ================= -->
 <main class="main-content">
@@ -874,6 +878,17 @@ p {
 
 <!-- ================= SCRIPTS ================= -->
 <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js') }}"></script>
+
+<!-- Auto-dismiss flash messages after 5 seconds -->
+<script>
+    setTimeout(function() {
+        var alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function(alert) {
+            var bsAlert = new bootstrap.Alert(alert);
+            bsAlert.close();
+        });
+    }, 5000);
+</script>
 
 </body>
 </html>
