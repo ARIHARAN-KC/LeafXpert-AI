@@ -1,599 +1,624 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<!-- Voice Assistant Page with LeafXpert Theme -->
-<section class="position-relative py-5">
+  <!-- Voice Assistant Page with LeafXpert Theme -->
+  <section class="position-relative py-5">
     <!-- Decorative Background Elements -->
     <div class="decor-bg-leaf-1">🌿</div>
     <div class="decor-bg-leaf-2">🍃</div>
     <div class="decor-bg-leaf-3">🌱</div>
-    
+
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 col-xl-7">
-                <!-- Header Section -->
-                <div class="text-center mb-5" data-aos="fade-down">
-                    <!-- Badge -->
-                    <div class="d-inline-block mb-3">
-                        <span class="badge bg-success-subtle text-success-emphasis px-3 py-2 rounded-pill">
-                            <i class="fas fa-microphone-alt me-2"></i>Voice Assistant
-                        </span>
-                    </div>
-                    
-                    <!-- Main Heading -->
-                    <h2 class="display-5 fw-bold mb-3">
-                        <span class="gradient-text">Multilingual Voice Assistant</span>
-                    </h2>
-                    
-                    <!-- Description -->
-                    <p class="lead text-secondary mx-auto" style="max-width: 600px;">
-                        Speak naturally in your preferred language and get instant AI-powered responses about plant diseases and care.
-                    </p>
-                    
-                    <!-- Decorative Line -->
-                    <div class="divider d-flex align-items-center justify-content-center mb-0">
-                        <span class="line bg-success"></span>
-                        <span class="mx-2"><i class="fas fa-leaf text-success"></i></span>
-                        <span class="line bg-success"></span>
-                    </div>
-                </div>
-
-                <!-- Voice Assistant Card -->
-                <div class="voice-card mb-5" data-aos="zoom-in">
-                    <div class="card-body p-4 p-lg-5">
-                        <!-- Voice Avatar -->
-                        <div class="voice-avatar mb-4 text-center">
-                            <div class="avatar-circle pulse-animation">
-                                <i class="fas fa-microphone-alt"></i>
-                            </div>
-                            <h4 class="mt-3 gradient-text fw-bold">How can I help you?</h4>
-                        </div>
-
-                        <!-- Language Selector -->
-                        <div class="language-selector mb-4">
-                            <label class="form-label text-secondary fw-semibold mb-2">
-                                <i class="fas fa-globe me-2 text-success"></i>Select Language
-                            </label>
-                            <select id="languageSelect" class="form-select form-select-lg">
-                                <option value="en-IN">🇬🇧 English (India)</option>
-                                <option value="hi-IN">🇮🇳 हिन्दी (Hindi)</option>
-                                <option value="ta-IN">🇮🇳 தமிழ் (Tamil)</option>
-                            </select>
-                        </div>
-
-                        <!-- Control Buttons -->
-                        <div class="control-buttons d-flex flex-wrap justify-content-center gap-3 mb-4">
-                            <button onclick="startRecording()" class="btn btn-voice btn-record">
-                                <i class="fas fa-circle me-2"></i>
-                                ON
-                            </button>
-
-                            <button onclick="stopRecording()" class="btn btn-voice btn-stop">
-                                <i class="fas fa-square me-2"></i>
-                                OFF
-                            </button>
-
-                            <button onclick="submitVoice()" class="btn btn-voice btn-submit">
-                                <i class="fas fa-paper-plane me-2"></i>
-                                Submit
-                            </button>
-                        </div>
-
-                        <!-- Status Display -->
-                        <div id="status" class="status-display text-center mb-4">
-                            <div class="status-indicator">
-                                <span class="status-dot"></span>
-                                <span class="status-text text-secondary">Ready</span>
-                            </div>
-                        </div>
-
-                        <!-- Voice Wave Animation (Active during recording) -->
-                        <div class="voice-wave-container text-center mb-3" id="voiceWave" style="display: none;">
-                            <div class="wave"></div>
-                            <div class="wave"></div>
-                            <div class="wave"></div>
-                            <div class="wave"></div>
-                            <div class="wave"></div>
-                        </div>
-
-                        <!-- Response Box -->
-                        <div id="responseBox" class="response-box mt-4" style="display: none;">
-                            <!-- You Said Section -->
-                            <div class="response-section user-section">
-                                <div class="response-header">
-                                    <div class="header-icon">
-                                        <i class="fas fa-user"></i>
-                                    </div>
-                                    <h5 class="mb-0">You Said:</h5>
-                                </div>
-                                <div class="response-content" id="userText">
-                                    <!-- User text will appear here -->
-                                </div>
-                            </div>
-
-                            <!-- AI Response Section -->
-                            <div class="response-section ai-section">
-                                <div class="response-header">
-                                    <div class="header-icon ai-icon">
-                                        <i class="fas fa-robot"></i>
-                                    </div>
-                                    <h5 class="mb-0">AI Response:</h5>
-                                </div>
-                                <div class="response-content" id="aiResponse">
-                                    <!-- AI response will appear here -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-7">
+          <!-- Header Section -->
+          <div class="text-center mb-5" data-aos="fade-down">
+            <!-- Badge -->
+            <div class="d-inline-block mb-3">
+              <span class="badge bg-success-subtle text-success-emphasis px-3 py-2 rounded-pill"><i class="fas fa-microphone-alt me-2"></i>Voice Assistant</span>
             </div>
+
+            <!-- Main Heading -->
+            <h2 class="display-5 fw-bold mb-3"><span class="gradient-text">Multilingual Voice Assistant</span></h2>
+
+            <!-- Description -->
+            <p class="lead text-secondary mx-auto" style="max-width: 600px;">Speak naturally in your preferred language and get instant AI-powered responses about plant diseases and care.</p>
+
+            <!-- Decorative Line -->
+            <div class="divider d-flex align-items-center justify-content-center mb-0">
+              <span class="line bg-success"></span>
+              <span class="mx-2"><i class="fas fa-leaf text-success"></i></span>
+              <span class="line bg-success"></span>
+            </div>
+          </div>
+
+          <!-- Voice Assistant Card -->
+          <div class="voice-card mb-5" data-aos="zoom-in">
+            <div class="card-body p-4 p-lg-5">
+              <!-- Voice Avatar -->
+              <div class="voice-avatar mb-4 text-center">
+                <div class="avatar-circle pulse-animation">
+                  <i class="fas fa-microphone-alt"></i>
+                </div>
+                <h4 class="mt-3 gradient-text fw-bold">How can I help you?</h4>
+              </div>
+
+              <!-- Language Selector -->
+              <div class="language-selector mb-4">
+                <label class="form-label text-secondary fw-semibold mb-2"><i class="fas fa-globe me-2 text-success"></i>Select Language</label>
+                <select id="languageSelect" class="form-select form-select-lg">
+                  <option value="en-IN">🇬🇧 English (India)</option>
+                  <option value="hi-IN">🇮🇳 हिन्दी (Hindi)</option>
+                  <option value="ta-IN">🇮🇳 தமிழ் (Tamil)</option>
+                </select>
+              </div>
+
+              <!-- Control Buttons -->
+              <div class="control-buttons d-flex flex-wrap justify-content-center gap-3 mb-4">
+                <button onclick="startRecording()" class="btn btn-voice btn-record">
+                  <i class="fas fa-circle me-2"></i>
+                  ON
+                </button>
+
+                <button onclick="stopRecording()" class="btn btn-voice btn-stop">
+                  <i class="fas fa-square me-2"></i>
+                  OFF
+                </button>
+
+                <button onclick="submitVoice()" class="btn btn-voice btn-submit">
+                  <i class="fas fa-paper-plane me-2"></i>
+                  Submit
+                </button>
+              </div>
+
+              <!-- Status Display -->
+              <div id="status" class="status-display text-center mb-4">
+                <div class="status-indicator">
+                  <span class="status-dot"></span>
+                  <span class="status-text text-secondary">Ready</span>
+                </div>
+              </div>
+
+              <!-- Voice Wave Animation (Active during recording) -->
+              <div class="voice-wave-container text-center mb-3" id="voiceWave" style="display: none;">
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+              </div>
+
+              <!-- Response Box -->
+              <div id="responseBox" class="response-box mt-4" style="display: none;">
+                <!-- You Said Section -->
+                <div class="response-section user-section">
+                  <div class="response-header">
+                    <div class="header-icon">
+                      <i class="fas fa-user"></i>
+                    </div>
+                    <h5 class="mb-0">You Said:</h5>
+                  </div>
+                  <div class="response-content" id="userText">
+                    <!-- User text will appear here -->
+                  </div>
+                </div>
+
+                <!-- AI Response Section -->
+                <div class="response-section ai-section">
+                  <div class="response-header">
+                    <div class="header-icon ai-icon">
+                      <i class="fas fa-robot"></i>
+                    </div>
+                    <h5 class="mb-0">AI Response:</h5>
+                  </div>
+                  <div class="response-content" id="aiResponse">
+                    <!-- AI response will appear here -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</section>
+  </section>
 
-<style>
+  <style>
     :root {
-        --gradient-nature: linear-gradient(135deg, #2e7d32 0%, #4caf50 50%, #8bc34a 100%);
-        --gradient-soft: linear-gradient(135deg, #f1f9f1 0%, #e8f5e8 100%);
-        --primary-color: #2e7d32;
-        --primary-dark: #1b5e20;
+      --gradient-nature: linear-gradient(135deg, #2e7d32 0%, #4caf50 50%, #8bc34a 100%);
+      --gradient-soft: linear-gradient(135deg, #f1f9f1 0%, #e8f5e8 100%);
+      --primary-color: #2e7d32;
+      --primary-dark: #1b5e20;
     }
-
+    
     /* Decorative Background Elements */
     .decor-bg-leaf-1 {
-        position: absolute;
-        top: 10%;
-        left: 5%;
-        font-size: 8rem;
-        opacity: 0.03;
-        transform: rotate(-15deg);
-        pointer-events: none;
-        z-index: -1;
+      position: absolute;
+      top: 10%;
+      left: 5%;
+      font-size: 8rem;
+      opacity: 0.03;
+      transform: rotate(-15deg);
+      pointer-events: none;
+      z-index: -1;
     }
     
     .decor-bg-leaf-2 {
-        position: absolute;
-        bottom: 5%;
-        right: 5%;
-        font-size: 10rem;
-        opacity: 0.03;
-        transform: rotate(25deg);
-        pointer-events: none;
-        z-index: -1;
+      position: absolute;
+      bottom: 5%;
+      right: 5%;
+      font-size: 10rem;
+      opacity: 0.03;
+      transform: rotate(25deg);
+      pointer-events: none;
+      z-index: -1;
     }
     
     .decor-bg-leaf-3 {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 15rem;
-        opacity: 0.02;
-        pointer-events: none;
-        z-index: -1;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 15rem;
+      opacity: 0.02;
+      pointer-events: none;
+      z-index: -1;
     }
-
+    
     /* Gradient Text */
     .gradient-text {
-        background: var(--gradient-nature);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+      background: var(--gradient-nature);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
-
+    
     /* Divider */
     .divider {
-        width: 200px;
-        margin: 1.5rem auto;
+      width: 200px;
+      margin: 1.5rem auto;
     }
     
     .divider .line {
-        flex: 1;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
     }
-
+    
     /* Voice Card */
     .voice-card {
-        background: white;
-        border-radius: 40px;
-        box-shadow: 0 20px 60px rgba(46, 125, 50, 0.15);
-        border: 1px solid rgba(46, 125, 50, 0.1);
-        transition: all 0.3s ease;
-        overflow: hidden;
+      background: white;
+      border-radius: 40px;
+      box-shadow: 0 20px 60px rgba(46, 125, 50, 0.15);
+      border: 1px solid rgba(46, 125, 50, 0.1);
+      transition: all 0.3s ease;
+      overflow: hidden;
     }
-
+    
     .voice-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 30px 80px rgba(46, 125, 50, 0.2);
+      transform: translateY(-5px);
+      box-shadow: 0 30px 80px rgba(46, 125, 50, 0.2);
     }
-
+    
     /* Voice Avatar */
     .avatar-circle {
-        width: 100px;
-        height: 100px;
-        background: var(--gradient-nature);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto;
-        box-shadow: 0 10px 30px rgba(46, 125, 50, 0.3);
+      width: 100px;
+      height: 100px;
+      background: var(--gradient-nature);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      box-shadow: 0 10px 30px rgba(46, 125, 50, 0.3);
     }
-
+    
     .avatar-circle i {
-        font-size: 3rem;
-        color: white;
+      font-size: 3rem;
+      color: white;
     }
-
+    
     .pulse-animation {
-        animation: pulse 2s infinite;
+      animation: pulse 2s infinite;
     }
-
+    
     @keyframes pulse {
-        0% { box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.5); }
-        70% { box-shadow: 0 0 0 20px rgba(46, 125, 50, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(46, 125, 50, 0); }
+      0% {
+        box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.5);
+      }
+      70% {
+        box-shadow: 0 0 0 20px rgba(46, 125, 50, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(46, 125, 50, 0);
+      }
     }
-
+    
     /* Language Selector */
     .language-selector .form-select {
-        border: 2px solid rgba(46, 125, 50, 0.2);
-        border-radius: 50px;
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%232e7d32' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+      border: 2px solid rgba(46, 125, 50, 0.2);
+      border-radius: 50px;
+      padding: 0.8rem 1.5rem;
+      padding-right: 3rem; /* space for arrow */
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    
+      appearance: none;
+    
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%232e7d32' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 14px;
     }
-
+    
     .language-selector .form-select:focus {
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.25);
-        outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.25);
+      outline: none;
     }
-
+    
     /* Control Buttons */
     .btn-voice {
-        padding: 0.8rem 2rem;
-        border-radius: 50px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        border: none;
-        min-width: 120px;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      min-width: 120px;
     }
-
+    
     .btn-record {
-        background: var(--gradient-nature);
-        color: white;
-        box-shadow: 0 10px 20px rgba(46, 125, 50, 0.2);
+      background: var(--gradient-nature);
+      color: white;
+      box-shadow: 0 10px 20px rgba(46, 125, 50, 0.2);
     }
-
+    
     .btn-record:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 15px 30px rgba(46, 125, 50, 0.3);
-        color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(46, 125, 50, 0.3);
+      color: white;
     }
-
+    
     .btn-stop {
-        background: #dc3545;
-        color: white;
-        box-shadow: 0 10px 20px rgba(220, 53, 69, 0.2);
+      background: #dc3545;
+      color: white;
+      box-shadow: 0 10px 20px rgba(220, 53, 69, 0.2);
     }
-
+    
     .btn-stop:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 15px 30px rgba(220, 53, 69, 0.3);
-        color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(220, 53, 69, 0.3);
+      color: white;
     }
-
+    
     .btn-submit {
-        background: #0d6efd;
-        color: white;
-        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.2);
+      background: #0d6efd;
+      color: white;
+      box-shadow: 0 10px 20px rgba(13, 110, 253, 0.2);
     }
-
+    
     .btn-submit:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 15px 30px rgba(13, 110, 253, 0.3);
-        color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(13, 110, 253, 0.3);
+      color: white;
     }
-
+    
     /* Status Display */
     .status-display {
-        background: linear-gradient(135deg, #f8faf8 0%, #f0f7f0 100%);
-        border-radius: 50px;
-        padding: 0.8rem;
-        border: 1px solid rgba(46, 125, 50, 0.1);
+      background: linear-gradient(135deg, #f8faf8 0%, #f0f7f0 100%);
+      border-radius: 50px;
+      padding: 0.8rem;
+      border: 1px solid rgba(46, 125, 50, 0.1);
     }
-
+    
     .status-indicator {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
-
+    
     .status-dot {
-        width: 10px;
-        height: 10px;
-        background: #28a745;
-        border-radius: 50%;
-        display: inline-block;
-        animation: blink 1.5s infinite;
+      width: 10px;
+      height: 10px;
+      background: #28a745;
+      border-radius: 50%;
+      display: inline-block;
+      animation: blink 1.5s infinite;
     }
-
+    
     @keyframes blink {
-        0% { opacity: 1; }
-        50% { opacity: 0.3; }
-        100% { opacity: 1; }
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.3;
+      }
+      100% {
+        opacity: 1;
+      }
     }
-
+    
     /* Voice Wave Animation */
     .voice-wave-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 5px;
-        height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      height: 40px;
     }
-
+    
     .wave {
-        width: 5px;
-        height: 20px;
-        background: var(--gradient-nature);
-        border-radius: 10px;
-        animation: wave 1s ease-in-out infinite;
+      width: 5px;
+      height: 20px;
+      background: var(--gradient-nature);
+      border-radius: 10px;
+      animation: wave 1s ease-in-out infinite;
     }
-
-    .wave:nth-child(2) { animation-delay: 0.1s; }
-    .wave:nth-child(3) { animation-delay: 0.2s; }
-    .wave:nth-child(4) { animation-delay: 0.3s; }
-    .wave:nth-child(5) { animation-delay: 0.4s; }
-
+    
+    .wave:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+    .wave:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+    .wave:nth-child(4) {
+      animation-delay: 0.3s;
+    }
+    .wave:nth-child(5) {
+      animation-delay: 0.4s;
+    }
+    
     @keyframes wave {
-        0%, 100% { height: 20px; }
-        50% { height: 40px; }
+      0%,
+      100% {
+        height: 20px;
+      }
+      50% {
+        height: 40px;
+      }
     }
-
+    
     /* Response Box */
     .response-box {
-        background: linear-gradient(135deg, #f8faf8 0%, #f0f7f0 100%);
-        border-radius: 30px;
-        padding: 1.5rem;
-        border: 1px solid rgba(46, 125, 50, 0.2);
-        animation: slideUp 0.5s ease;
+      background: linear-gradient(135deg, #f8faf8 0%, #f0f7f0 100%);
+      border-radius: 30px;
+      padding: 1.5rem;
+      border: 1px solid rgba(46, 125, 50, 0.2);
+      animation: slideUp 0.5s ease;
     }
-
+    
     @keyframes slideUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-
+    
     .response-section {
-        margin-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
     }
-
+    
     .response-section:last-child {
-        margin-bottom: 0;
+      margin-bottom: 0;
     }
-
+    
     .response-header {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 0.8rem;
     }
-
+    
     .header-icon {
-        width: 35px;
-        height: 35px;
-        background: var(--gradient-nature);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      width: 35px;
+      height: 35px;
+      background: var(--gradient-nature);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-
+    
     .header-icon i {
-        color: white;
-        font-size: 1rem;
+      color: white;
+      font-size: 1rem;
     }
-
+    
     .header-icon.ai-icon {
-        background: linear-gradient(135deg, #6f42c1 0%, #8a63d2 100%);
+      background: linear-gradient(135deg, #6f42c1 0%, #8a63d2 100%);
     }
-
+    
     .response-content {
-        background: white;
-        border-radius: 20px;
-        padding: 1.2rem;
-        margin-left: 45px;
-        border: 1px solid rgba(46, 125, 50, 0.1);
-        line-height: 1.7;
+      background: white;
+      border-radius: 20px;
+      padding: 1.2rem;
+      margin-left: 45px;
+      border: 1px solid rgba(46, 125, 50, 0.1);
+      line-height: 1.7;
     }
-
+    
     /* Responsive */
     @media (max-width: 768px) {
-        .decor-bg-leaf-1,
-        .decor-bg-leaf-2,
-        .decor-bg-leaf-3 {
-            font-size: 5rem;
-        }
-
-        .control-buttons {
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .btn-voice {
-            width: 100%;
-            max-width: 200px;
-        }
-
-        .response-content {
-            margin-left: 0;
-        }
+      .decor-bg-leaf-1,
+      .decor-bg-leaf-2,
+      .decor-bg-leaf-3 {
+        font-size: 5rem;
+      }
+    
+      .control-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    
+      .btn-voice {
+        width: 100%;
+        max-width: 200px;
+      }
+    
+      .response-content {
+        margin-left: 0;
+      }
     }
-</style>
+  </style>
 
-<!-- Add AOS Animation Library -->
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
+  <!-- Add AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
     // Initialize AOS
     AOS.init({
-        duration: 800,
-        once: true,
-        offset: 100
-    });
-
+      duration: 800,
+      once: true,
+      offset: 100
+    })
+    
     // Voice wave animation control
     function startRecording() {
-        // Your existing startRecording logic
-        document.getElementById('voiceWave').style.display = 'flex';
-        // ... rest of your function
+      // Your existing startRecording logic
+      document.getElementById('voiceWave').style.display = 'flex'
+      // ... rest of your function
     }
-
+    
     function stopRecording() {
-        // Your existing stopRecording logic
-        document.getElementById('voiceWave').style.display = 'none';
-        // ... rest of your function
+      // Your existing stopRecording logic
+      document.getElementById('voiceWave').style.display = 'none'
+      // ... rest of your function
     }
-</script>
+  </script>
 
-<!-- Your original script - completely untouched -->
-<script>
-let recognition;
-let finalTranscript = "";
-
-// ===============================
-// START RECORDING
-// ===============================
-function startRecording() {
-
-    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-        alert("Speech Recognition not supported in this browser. Use Google Chrome.");
-        return;
-    }
-
-    recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-
-    const selectedLang = document.getElementById("languageSelect").value;
-    recognition.lang = selectedLang;
-
-    recognition.continuous = true;
-    recognition.interimResults = true;
-
-    finalTranscript = "";
-
-    recognition.start();
-
-    // Show wave animation
-    document.getElementById("voiceWave").style.display = "flex";
-
-    // Update status properly
-    document.querySelector("#status .status-text").innerText = "Recording... Speak now";
-
-    recognition.onresult = function(event) {
-        finalTranscript = "";
+  <!-- Your original script - completely untouched -->
+  <script>
+    let recognition
+    let finalTranscript = ''
+    
+    // ===============================
+    // START RECORDING
+    // ===============================
+    function startRecording() {
+      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        alert('Speech Recognition not supported in this browser. Use Google Chrome.')
+        return
+      }
+    
+      recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)()
+    
+      const selectedLang = document.getElementById('languageSelect').value
+      recognition.lang = selectedLang
+    
+      recognition.continuous = true
+      recognition.interimResults = true
+    
+      finalTranscript = ''
+    
+      recognition.start()
+    
+      // Show wave animation
+      document.getElementById('voiceWave').style.display = 'flex'
+    
+      // Update status properly
+      document.querySelector('#status .status-text').innerText = 'Recording... Speak now'
+    
+      recognition.onresult = function (event) {
+        finalTranscript = ''
         for (let i = 0; i < event.results.length; i++) {
-            finalTranscript += event.results[i][0].transcript;
+          finalTranscript += event.results[i][0].transcript
         }
-        document.getElementById("userText").innerText = finalTranscript;
-    };
-
-    recognition.onerror = function(event) {
-        if (event.error === "no-speech") {
-            document.querySelector("#status .status-text").innerText = "No speech detected. Try again.";
-        } else if (event.error === "not-allowed") {
-            document.querySelector("#status .status-text").innerText = "Microphone permission denied.";
+        document.getElementById('userText').innerText = finalTranscript
+      }
+    
+      recognition.onerror = function (event) {
+        if (event.error === 'no-speech') {
+          document.querySelector('#status .status-text').innerText = 'No speech detected. Try again.'
+        } else if (event.error === 'not-allowed') {
+          document.querySelector('#status .status-text').innerText = 'Microphone permission denied.'
         } else {
-            document.querySelector("#status .status-text").innerText = "Error: " + event.error;
+          document.querySelector('#status .status-text').innerText = 'Error: ' + event.error
         }
-    };
-
-    recognition.onend = function() {
-        document.getElementById("voiceWave").style.display = "none";
-        document.querySelector("#status .status-text").innerText += " (Stopped)";
-    };
-}
-
-// ===============================
-// STOP RECORDING
-// ===============================
-function stopRecording() {
-    if (recognition) {
-        recognition.stop();
-        document.getElementById("voiceWave").style.display = "none";
-        document.querySelector("#status .status-text").innerText = "Recording Stopped";
+      }
+    
+      recognition.onend = function () {
+        document.getElementById('voiceWave').style.display = 'none'
+        document.querySelector('#status .status-text').innerText += ' (Stopped)'
+      }
     }
-}
-
-// ===============================
-// SUBMIT VOICE TO BACKEND
-// ===============================
-async function submitVoice() {
-
-    if (!finalTranscript.trim()) {
-        alert("No voice input detected!");
-        return;
+    
+    // ===============================
+    // STOP RECORDING
+    // ===============================
+    function stopRecording() {
+      if (recognition) {
+        recognition.stop()
+        document.getElementById('voiceWave').style.display = 'none'
+        document.querySelector('#status .status-text').innerText = 'Recording Stopped'
+      }
     }
-
-    document.querySelector("#status .status-text").innerText = "Processing...";
-
-    const response = await fetch("/voice-query", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+    
+    // ===============================
+    // SUBMIT VOICE TO BACKEND
+    // ===============================
+    async function submitVoice() {
+      if (!finalTranscript.trim()) {
+        alert('No voice input detected!')
+        return
+      }
+    
+      document.querySelector('#status .status-text').innerText = 'Processing...'
+    
+      const response = await fetch('/voice-query', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: finalTranscript })
-    });
-
-    const data = await response.json();
-
-    document.getElementById("aiResponse").innerText = data.answer;
-    document.getElementById("responseBox").style.display = "block";
-    document.querySelector("#status .status-text").innerText = "Done";
-
-    speakResponse(data.answer);
-}
-
-// ===============================
-// SPEAK RESPONSE (FIXED FOR TAMIL/HINDI)
-// ===============================
-function speakResponse(text) {
-
-    const selectedLang = document.getElementById("languageSelect").value;
-    const speech = new SpeechSynthesisUtterance(text);
-    speech.lang = selectedLang;
-
-    function setVoiceAndSpeak() {
-
-        const voices = window.speechSynthesis.getVoices();
-
+      })
+    
+      const data = await response.json()
+    
+      document.getElementById('aiResponse').innerText = data.answer
+      document.getElementById('responseBox').style.display = 'block'
+      document.querySelector('#status .status-text').innerText = 'Done'
+    
+      speakResponse(data.answer)
+    }
+    
+    // ===============================
+    // SPEAK RESPONSE (FIXED FOR TAMIL/HINDI)
+    // ===============================
+    function speakResponse(text) {
+      const selectedLang = document.getElementById('languageSelect').value
+      const speech = new SpeechSynthesisUtterance(text)
+      speech.lang = selectedLang
+    
+      function setVoiceAndSpeak() {
+        const voices = window.speechSynthesis.getVoices()
+    
         // Try exact match first (ta-IN, hi-IN, en-IN)
-        let matchedVoice = voices.find(v => v.lang === selectedLang);
-
+        let matchedVoice = voices.find((v) => v.lang === selectedLang)
+    
         // If not found, match by language prefix (ta, hi, en)
         if (!matchedVoice) {
-            const prefix = selectedLang.split("-")[0];
-            matchedVoice = voices.find(v => v.lang.startsWith(prefix));
+          const prefix = selectedLang.split('-')[0]
+          matchedVoice = voices.find((v) => v.lang.startsWith(prefix))
         }
-
+    
         // If still not found, fallback to default
         if (matchedVoice) {
-            speech.voice = matchedVoice;
+          speech.voice = matchedVoice
         }
-
-        window.speechSynthesis.cancel(); // Stop any previous speech
-        window.speechSynthesis.speak(speech);
+    
+        window.speechSynthesis.cancel() // Stop any previous speech
+        window.speechSynthesis.speak(speech)
+      }
+    
+      // Some browsers load voices asynchronously
+      if (speechSynthesis.getVoices().length === 0) {
+        speechSynthesis.onvoiceschanged = setVoiceAndSpeak
+      } else {
+        setVoiceAndSpeak()
+      }
     }
-
-    // Some browsers load voices asynchronously
-    if (speechSynthesis.getVoices().length === 0) {
-        speechSynthesis.onvoiceschanged = setVoiceAndSpeak;
-    } else {
-        setVoiceAndSpeak();
-    }
-}
-</script>
-
+  </script>
 {% endblock %}

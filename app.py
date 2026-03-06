@@ -27,6 +27,7 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 # OPENROUTER KEY
 # ==============================
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+# print("DEBUG KEY:", OPENROUTER_API_KEY)
 
 if not OPENROUTER_API_KEY:
     raise ValueError("OPENROUTER_API_KEY not found in .env")
@@ -58,7 +59,11 @@ def load_user(user_id):
 # ==============================
 router_client = OpenAI(
     api_key=OPENROUTER_API_KEY,
-    base_url="https://openrouter.ai/api/v1"
+    base_url="https://openrouter.ai/api/v1",
+    default_headers={
+        "HTTP-Referer": "http://localhost:5000",
+        "X-Title": "LeafXpert-AI"
+    }
 )
 
 # ==============================
