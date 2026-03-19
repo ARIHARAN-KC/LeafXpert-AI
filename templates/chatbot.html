@@ -154,6 +154,16 @@
 </section>
 
 <style>
+    /* Root variables for gradients */
+    :root {
+        --gradient-nature: linear-gradient(135deg, #2e7d32, #4caf50);
+        --gradient-nature-hover: linear-gradient(135deg, #1b5e20, #2e7d32);
+        --gradient-soft: linear-gradient(135deg, #f1f8e9, #e8f5e9);
+        --primary-color: #2e7d32;
+        --primary-dark: #1b5e20;
+        --text-dark: #1c2e1c;
+    }
+
     /* Decorative Background Elements */
     .decor-bg-leaf-1 {
         position: absolute;
@@ -344,26 +354,51 @@
         transform: translateY(-2px);
     }
     
-    /* Buttons */
+    /* Updated Button Styling - FIXED VERSION */
     .btn-primary-modern {
         background: var(--gradient-nature);
-        color: white;
+        color: white !important;
         border: none;
         border-radius: 50px;
         font-weight: 600;
         transition: all 0.3s ease;
         box-shadow: 0 10px 20px rgba(46, 125, 50, 0.2);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .btn-primary-modern i {
+        color: white !important;
     }
     
     .btn-primary-modern:hover {
+        background: var(--gradient-nature-hover);
         transform: translateY(-3px);
         box-shadow: 0 15px 30px rgba(46, 125, 50, 0.3);
-        color: white;
+        color: white !important;
+    }
+    
+    .btn-primary-modern:active {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 15px rgba(46, 125, 50, 0.3);
+    }
+    
+    .btn-primary-modern:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.3);
     }
     
     .btn-primary-modern:disabled {
         opacity: 0.6;
         cursor: not-allowed;
+        transform: none;
+        box-shadow: 0 5px 10px rgba(46, 125, 50, 0.1);
+    }
+    
+    /* Ensure all text inside button is white */
+    .btn-primary-modern * {
+        color: white !important;
     }
     
     /* Feature Mini Cards */
@@ -385,6 +420,7 @@
         display: block;
         font-size: 1.2rem;
         margin-bottom: 0.3rem;
+        color: var(--primary-color);
     }
     
     .feature-mini-card small {
@@ -428,6 +464,7 @@
             flex-wrap: nowrap;
             overflow-x: auto;
             padding-bottom: 0.5rem;
+            -webkit-overflow-scrolling: touch;
         }
         
         .suggestion-chip {

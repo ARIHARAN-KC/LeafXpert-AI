@@ -49,22 +49,29 @@
                   <option value="en-IN">🇬🇧 English (India)</option>
                   <option value="hi-IN">🇮🇳 हिन्दी (Hindi)</option>
                   <option value="ta-IN">🇮🇳 தமிழ் (Tamil)</option>
+                  <option value="te-IN">🇮🇳 తెలుగు (Telugu)</option>
+                  <option value="kn-IN">🇮🇳 ಕನ್ನಡ (Kannada)</option>
+                  <option value="ml-IN">🇮🇳 മലയാളം (Malayalam)</option>
+                  <option value="bn-IN">🇮🇳 বাংলা (Bengali)</option>
+                  <option value="mr-IN">🇮🇳 मराठी (Marathi)</option>
+                  <option value="gu-IN">🇮🇳 ગુજરાતી (Gujarati)</option>
+                  <option value="pa-IN">🇮🇳 ਪੰਜਾਬੀ (Punjabi)</option>
                 </select>
               </div>
 
               <!-- Control Buttons -->
               <div class="control-buttons d-flex flex-wrap justify-content-center gap-3 mb-4">
-                <button onclick="startRecording()" class="btn btn-voice btn-record">
+                <button onclick="startRecording()" class="btn btn-voice btn-record" id="startBtn">
                   <i class="fas fa-circle me-2"></i>
-                  ON
+                  Start Recording
                 </button>
 
-                <button onclick="stopRecording()" class="btn btn-voice btn-stop">
+                <button onclick="stopRecording()" class="btn btn-voice btn-stop" id="stopBtn" disabled>
                   <i class="fas fa-square me-2"></i>
-                  OFF
+                  Stop Recording
                 </button>
 
-                <button onclick="submitVoice()" class="btn btn-voice btn-submit">
+                <button onclick="submitVoice()" class="btn btn-voice btn-submit" id="submitBtn">
                   <i class="fas fa-paper-plane me-2"></i>
                   Submit
                 </button>
@@ -73,8 +80,8 @@
               <!-- Status Display -->
               <div id="status" class="status-display text-center mb-4">
                 <div class="status-indicator">
-                  <span class="status-dot"></span>
-                  <span class="status-text text-secondary">Ready</span>
+                  <span class="status-dot" id="statusDot"></span>
+                  <span class="status-text text-secondary" id="statusText">Ready</span>
                 </div>
               </div>
 
@@ -85,6 +92,14 @@
                 <div class="wave"></div>
                 <div class="wave"></div>
                 <div class="wave"></div>
+              </div>
+
+              <!-- Volume Meter (Visual feedback for voice detection) -->
+              <div class="volume-meter-container mb-3" id="volumeMeter" style="display: none;">
+                <div class="volume-meter">
+                  <div class="volume-level" id="volumeLevel"></div>
+                </div>
+                <small class="text-muted mt-1">Speak now - microphone active</small>
               </div>
 
               <!-- Response Box -->
@@ -238,14 +253,11 @@
       border: 2px solid rgba(46, 125, 50, 0.2);
       border-radius: 50px;
       padding: 0.8rem 1.5rem;
-      padding-right: 3rem; /* space for arrow */
+      padding-right: 3rem;
       font-size: 1rem;
       transition: all 0.3s ease;
-    
       appearance: none;
-    
       background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%232e7d32' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-    
       background-repeat: no-repeat;
       background-position: right 1rem center;
       background-size: 14px;
@@ -264,7 +276,7 @@
       font-weight: 600;
       transition: all 0.3s ease;
       border: none;
-      min-width: 120px;
+      min-width: 140px;
     }
     
     .btn-record {
@@ -273,7 +285,7 @@
       box-shadow: 0 10px 20px rgba(46, 125, 50, 0.2);
     }
     
-    .btn-record:hover {
+    .btn-record:hover:not(:disabled) {
       transform: translateY(-3px);
       box-shadow: 0 15px 30px rgba(46, 125, 50, 0.3);
       color: white;
@@ -285,7 +297,7 @@
       box-shadow: 0 10px 20px rgba(220, 53, 69, 0.2);
     }
     
-    .btn-stop:hover {
+    .btn-stop:hover:not(:disabled) {
       transform: translateY(-3px);
       box-shadow: 0 15px 30px rgba(220, 53, 69, 0.3);
       color: white;
@@ -297,10 +309,16 @@
       box-shadow: 0 10px 20px rgba(13, 110, 253, 0.2);
     }
     
-    .btn-submit:hover {
+    .btn-submit:hover:not(:disabled) {
       transform: translateY(-3px);
       box-shadow: 0 15px 30px rgba(13, 110, 253, 0.3);
       color: white;
+    }
+    
+    .btn-voice:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
     }
     
     /* Status Display */
@@ -325,6 +343,26 @@
       border-radius: 50%;
       display: inline-block;
       animation: blink 1.5s infinite;
+    }
+    
+    .status-dot.recording {
+      background: #dc3545;
+      animation: pulse-recording 1s infinite;
+    }
+    
+    @keyframes pulse-recording {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
     
     @keyframes blink {
@@ -377,6 +415,27 @@
       50% {
         height: 40px;
       }
+    }
+    
+    /* Volume Meter */
+    .volume-meter-container {
+      text-align: center;
+    }
+    
+    .volume-meter {
+      width: 100%;
+      height: 8px;
+      background: #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    
+    .volume-level {
+      height: 100%;
+      width: 0%;
+      background: var(--gradient-nature);
+      transition: width 0.1s ease;
+      border-radius: 10px;
     }
     
     /* Response Box */
@@ -440,6 +499,7 @@
       margin-left: 45px;
       border: 1px solid rgba(46, 125, 50, 0.1);
       line-height: 1.7;
+      word-wrap: break-word;
     }
     
     /* Responsive */
@@ -476,149 +536,422 @@
       once: true,
       offset: 100
     })
-    
-    // Voice wave animation control
-    function startRecording() {
-      // Your existing startRecording logic
-      document.getElementById('voiceWave').style.display = 'flex'
-      // ... rest of your function
-    }
-    
-    function stopRecording() {
-      // Your existing stopRecording logic
-      document.getElementById('voiceWave').style.display = 'none'
-      // ... rest of your function
-    }
   </script>
 
-  <!-- Your original script - completely untouched -->
+  <!-- Updated Voice Recognition Script with Fixes -->
   <script>
-    let recognition
+    let recognition = null
     let finalTranscript = ''
+    let isRecording = false
+    let restartTimeout = null
+    let silenceTimer = null
+    let audioContext = null
+    let analyser = null
+    let microphone = null
+    let javascriptNode = null
     
-    // ===============================
-    // START RECORDING
-    // ===============================
-    function startRecording() {
+    // DOM Elements
+    const startBtn = document.getElementById('startBtn')
+    const stopBtn = document.getElementById('stopBtn')
+    const submitBtn = document.getElementById('submitBtn')
+    const statusText = document.getElementById('statusText')
+    const statusDot = document.getElementById('statusDot')
+    const voiceWave = document.getElementById('voiceWave')
+    const volumeMeter = document.getElementById('volumeMeter')
+    const volumeLevel = document.getElementById('volumeLevel')
+    const userText = document.getElementById('userText')
+    const aiResponse = document.getElementById('aiResponse')
+    const responseBox = document.getElementById('responseBox')
+    const languageSelect = document.getElementById('languageSelect')
+    
+    // Check browser support
+    function checkBrowserSupport() {
       if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-        alert('Speech Recognition not supported in this browser. Use Google Chrome.')
-        return
+        statusText.innerText = '❌ Speech recognition not supported. Use Chrome, Edge, or Safari.'
+        startBtn.disabled = true
+        return false
       }
+      return true
+    }
     
+    // Initialize volume meter for visual feedback
+    async function initVolumeMeter() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+        audioContext = new (window.AudioContext || window.webkitAudioContext)()
+        analyser = audioContext.createAnalyser()
+        microphone = audioContext.createMediaStreamSource(stream)
+        microphone.connect(analyser)
+        analyser.fftSize = 256
+        const bufferLength = analyser.frequencyBinCount
+        const dataArray = new Uint8Array(bufferLength)
+        
+        function updateVolume() {
+          if (!isRecording) return
+          analyser.getByteFrequencyData(dataArray)
+          let sum = 0
+          for (let i = 0; i < bufferLength; i++) {
+            sum += dataArray[i]
+          }
+          let avg = sum / bufferLength
+          let percent = (avg / 255) * 100
+          volumeLevel.style.width = percent + '%'
+          
+          // Change color based on volume
+          if (percent > 50) {
+            volumeLevel.style.background = 'linear-gradient(135deg, #4caf50, #8bc34a)'
+          } else {
+            volumeLevel.style.background = 'var(--gradient-nature)'
+          }
+          
+          requestAnimationFrame(updateVolume)
+        }
+        updateVolume()
+      } catch (err) {
+        console.log('Volume meter not available:', err)
+      }
+    }
+    
+    // Start recording with improved error handling
+    function startRecording() {
+      if (!checkBrowserSupport()) return
+      
+      // Request microphone permission first
+      navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(function(stream) {
+          // Stop all tracks to release microphone
+          stream.getTracks().forEach(track => track.stop())
+          
+          // Now initialize recognition
+          initializeRecognition()
+        })
+        .catch(function(err) {
+          statusText.innerText = '❌ Microphone access denied. Please allow microphone access.'
+          console.error('Microphone permission error:', err)
+        })
+    }
+    
+    function initializeRecognition() {
+      // Clear any existing recognition
+      if (recognition) {
+        try {
+          recognition.stop()
+        } catch (e) {}
+      }
+      
       recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)()
-    
-      const selectedLang = document.getElementById('languageSelect').value
+      
+      const selectedLang = languageSelect.value
       recognition.lang = selectedLang
-    
       recognition.continuous = true
       recognition.interimResults = true
-    
+      recognition.maxAlternatives = 1
+      
+      // Increase sensitivity for better detection
+      if (recognition.continuous !== undefined) {
+        recognition.continuous = true
+      }
+      
       finalTranscript = ''
-    
-      recognition.start()
-    
-      // Show wave animation
-      document.getElementById('voiceWave').style.display = 'flex'
-    
-      // Update status properly
-      document.querySelector('#status .status-text').innerText = 'Recording... Speak now'
-    
+      isRecording = true
+      
+      // Update UI
+      startBtn.disabled = true
+      stopBtn.disabled = false
+      submitBtn.disabled = false
+      voiceWave.style.display = 'flex'
+      volumeMeter.style.display = 'block'
+      statusDot.classList.add('recording')
+      statusText.innerText = '🎤 Recording... Speak now'
+      
+      // Clear any previous response box
+      responseBox.style.display = 'none'
+      
+      // Start recognition with retry logic
+      try {
+        recognition.start()
+      } catch (e) {
+        console.error('Recognition start error:', e)
+        // If already started, restart it
+        setTimeout(() => {
+          try {
+            recognition.stop()
+            setTimeout(() => {
+              recognition.start()
+            }, 100)
+          } catch (err) {}
+        }, 100)
+      }
+      
+      // Initialize volume meter for visual feedback
+      initVolumeMeter()
+      
+      // Set silence detection timer
+      clearTimeout(silenceTimer)
+      silenceTimer = setTimeout(() => {
+        if (isRecording && !finalTranscript) {
+          statusText.innerText = '⚠️ No speech detected. Keep speaking or click Stop.'
+        }
+      }, 5000)
+      
+      // Recognition result handler
       recognition.onresult = function (event) {
+        // Clear silence timer since we got speech
+        clearTimeout(silenceTimer)
+        
+        let interimTranscript = ''
         finalTranscript = ''
+        
         for (let i = 0; i < event.results.length; i++) {
-          finalTranscript += event.results[i][0].transcript
+          const transcript = event.results[i][0].transcript
+          if (event.results[i].isFinal) {
+            finalTranscript += transcript + ' '
+          } else {
+            interimTranscript += transcript
+          }
         }
-        document.getElementById('userText').innerText = finalTranscript
+        
+        // Display what's being recognized in real-time
+        if (finalTranscript) {
+          userText.innerText = finalTranscript
+        } else if (interimTranscript) {
+          userText.innerText = interimTranscript + '...'
+        }
+        
+        // Reset silence timer
+        if (isRecording) {
+          clearTimeout(silenceTimer)
+          silenceTimer = setTimeout(() => {
+            if (isRecording) {
+              statusText.innerText = '🎤 Still listening...'
+            }
+          }, 3000)
+        }
       }
-    
+      
+      // Error handler with specific fixes
       recognition.onerror = function (event) {
+        console.error('Recognition error:', event.error)
+        
         if (event.error === 'no-speech') {
-          document.querySelector('#status .status-text').innerText = 'No speech detected. Try again.'
+          statusText.innerText = '🎤 No speech detected. Try speaking louder or check microphone.'
+          // Try to restart if no speech but still recording
+          if (isRecording) {
+            setTimeout(() => {
+              try {
+                recognition.stop()
+                setTimeout(() => {
+                  if (isRecording) {
+                    recognition.start()
+                  }
+                }, 100)
+              } catch (e) {}
+            }, 500)
+          }
+        } else if (event.error === 'audio-capture') {
+          statusText.innerText = '❌ No microphone found. Please connect a microphone.'
+          stopRecording()
         } else if (event.error === 'not-allowed') {
-          document.querySelector('#status .status-text').innerText = 'Microphone permission denied.'
+          statusText.innerText = '❌ Microphone permission denied. Please allow access.'
+          stopRecording()
+        } else if (event.error === 'network') {
+          statusText.innerText = '❌ Network error. Check your connection.'
+          // Retry after network error
+          if (isRecording) {
+            setTimeout(() => {
+              try {
+                if (isRecording) {
+                  recognition.start()
+                }
+              } catch (e) {}
+            }, 1000)
+          }
         } else {
-          document.querySelector('#status .status-text').innerText = 'Error: ' + event.error
+          statusText.innerText = '⚠️ Error: ' + event.error
         }
       }
-    
+      
+      // End handler with auto-restart for continuous listening
       recognition.onend = function () {
-        document.getElementById('voiceWave').style.display = 'none'
-        document.querySelector('#status .status-text').innerText += ' (Stopped)'
+        console.log('Recognition ended, isRecording:', isRecording)
+        
+        // Auto-restart if we're still supposed to be recording
+        if (isRecording) {
+          clearTimeout(restartTimeout)
+          restartTimeout = setTimeout(() => {
+            if (isRecording) {
+              try {
+                recognition.start()
+                statusText.innerText = '🎤 Recording... (restarted)'
+              } catch (e) {
+                console.error('Restart failed:', e)
+                // If restart fails, stop recording
+                stopRecording()
+              }
+            }
+          }, 300)
+        } else {
+          // Clean up UI if stopped manually
+          voiceWave.style.display = 'none'
+          volumeMeter.style.display = 'none'
+          statusDot.classList.remove('recording')
+        }
       }
     }
     
-    // ===============================
-    // STOP RECORDING
-    // ===============================
+    // Stop recording
     function stopRecording() {
+      isRecording = false
+      
+      // Clear timers
+      clearTimeout(restartTimeout)
+      clearTimeout(silenceTimer)
+      
+      // Stop recognition
       if (recognition) {
-        recognition.stop()
-        document.getElementById('voiceWave').style.display = 'none'
-        document.querySelector('#status .status-text').innerText = 'Recording Stopped'
+        try {
+          recognition.stop()
+        } catch (e) {}
+      }
+      
+      // Close audio context
+      if (audioContext) {
+        audioContext.close()
+      }
+      
+      // Update UI
+      startBtn.disabled = false
+      stopBtn.disabled = true
+      voiceWave.style.display = 'none'
+      volumeMeter.style.display = 'none'
+      statusDot.classList.remove('recording')
+      
+      if (finalTranscript.trim()) {
+        statusText.innerText = '✅ Recording stopped. You can submit or record again.'
+        // Show the transcript
+        userText.innerText = finalTranscript
+      } else {
+        statusText.innerText = '⏸️ Recording stopped. No speech detected.'
       }
     }
     
-    // ===============================
-    // SUBMIT VOICE TO BACKEND
-    // ===============================
+    // Submit voice to backend
     async function submitVoice() {
-      if (!finalTranscript.trim()) {
-        alert('No voice input detected!')
+      if (!finalTranscript || !finalTranscript.trim()) {
+        alert('No voice input detected! Please record something first.')
         return
       }
-    
-      document.querySelector('#status .status-text').innerText = 'Processing...'
-    
-      const response = await fetch('/voice-query', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: finalTranscript })
-      })
-    
-      const data = await response.json()
-    
-      document.getElementById('aiResponse').innerText = data.answer
-      document.getElementById('responseBox').style.display = 'block'
-      document.querySelector('#status .status-text').innerText = 'Done'
-    
-      speakResponse(data.answer)
+      
+      statusText.innerText = '⏳ Processing...'
+      submitBtn.disabled = true
+      startBtn.disabled = true
+      
+      try {
+        const response = await fetch('/voice-query', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: finalTranscript.trim() })
+        })
+        
+        if (!response.ok) {
+          throw new Error('Network response was not ok')
+        }
+        
+        const data = await response.json()
+        
+        aiResponse.innerText = data.answer || 'No response received'
+        responseBox.style.display = 'block'
+        statusText.innerText = '✅ Done! Response received.'
+        
+        // Speak the response
+        speakResponse(data.answer)
+        
+      } catch (error) {
+        console.error('Submit error:', error)
+        statusText.innerText = '❌ Error submitting. Please try again.'
+        aiResponse.innerText = 'Error: Could not get response from server'
+        responseBox.style.display = 'block'
+      } finally {
+        submitBtn.disabled = false
+        startBtn.disabled = false
+      }
     }
     
-    // ===============================
-    // SPEAK RESPONSE (FIXED FOR TAMIL/HINDI)
-    // ===============================
+    // Speak response with improved voice selection
     function speakResponse(text) {
-      const selectedLang = document.getElementById('languageSelect').value
+      if (!text) return
+      
+      const selectedLang = languageSelect.value
       const speech = new SpeechSynthesisUtterance(text)
       speech.lang = selectedLang
-    
+      speech.rate = 0.9
+      speech.pitch = 1
+      speech.volume = 1
+      
       function setVoiceAndSpeak() {
         const voices = window.speechSynthesis.getVoices()
-    
-        // Try exact match first (ta-IN, hi-IN, en-IN)
-        let matchedVoice = voices.find((v) => v.lang === selectedLang)
-    
-        // If not found, match by language prefix (ta, hi, en)
+        
+        // Try exact match first
+        let matchedVoice = voices.find(v => v.lang === selectedLang)
+        
+        // If not found, try language prefix
         if (!matchedVoice) {
           const prefix = selectedLang.split('-')[0]
-          matchedVoice = voices.find((v) => v.lang.startsWith(prefix))
+          matchedVoice = voices.find(v => v.lang.startsWith(prefix))
         }
-    
-        // If still not found, fallback to default
+        
+        // Try Indian English as fallback for Indian languages
+        if (!matchedVoice && selectedLang !== 'en-IN') {
+          matchedVoice = voices.find(v => v.lang === 'en-IN')
+        }
+        
         if (matchedVoice) {
           speech.voice = matchedVoice
         }
-    
-        window.speechSynthesis.cancel() // Stop any previous speech
-        window.speechSynthesis.speak(speech)
+        
+        // Cancel any ongoing speech
+        window.speechSynthesis.cancel()
+        
+        // Speak with error handling
+        try {
+          window.speechSynthesis.speak(speech)
+        } catch (e) {
+          console.error('Speech synthesis error:', e)
+        }
       }
-    
-      // Some browsers load voices asynchronously
+      
+      // Handle async voice loading
       if (speechSynthesis.getVoices().length === 0) {
-        speechSynthesis.onvoiceschanged = setVoiceAndSpeak
+        speechSynthesis.onvoiceschanged = () => {
+          speechSynthesis.onvoiceschanged = null
+          setVoiceAndSpeak()
+        }
       } else {
         setVoiceAndSpeak()
       }
     }
+    
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      checkBrowserSupport()
+      
+      // Stop recording if user leaves page
+      window.addEventListener('beforeunload', function() {
+        if (isRecording) {
+          stopRecording()
+        }
+      })
+      
+      // Handle language change during recording
+      languageSelect.addEventListener('change', function() {
+        if (isRecording) {
+          // Restart recognition with new language
+          stopRecording()
+          setTimeout(() => {
+            startRecording()
+          }, 300)
+        }
+      })
+    })
   </script>
 {% endblock %}
